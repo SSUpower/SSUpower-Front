@@ -14,8 +14,8 @@ const MapMain = () => {
     return (
 		<Wrapper>
 			<div id='myMap' style={{
-				width: '500px',
-				height: '500px'
+				width: '100vw',
+				height: '100vh'
 			}}></div>
 		</Wrapper>
     );
@@ -28,9 +28,9 @@ const Wrapper = styled.div`
 	align-items: center;
 	text-align: center;
 	// flex-flow: column wrap;
-	padding-top: 40px;
-	padding-left: 30px;
-	padding-right: 30px;
-	padding-bottom: 20px;
+	// padding-top: 40px;
+	// padding-left: 30px;
+	// padding-right: 30px;
+	// padding-bottom: 20px;
 	// border-bottom: 2px solid #e9ecef;
 `;
