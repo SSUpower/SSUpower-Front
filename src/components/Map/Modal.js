@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import ModalContents from './ModalContents';
 
 function Modal({ isOpen, closeModal }) {
   return (
@@ -8,11 +9,7 @@ function Modal({ isOpen, closeModal }) {
         <Wrapper>
           <Button onClick={closeModal}> 창 닫기 </Button>
             <br />
-          <Contents> 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 
-          내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 
-          내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다.
-          내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다.
-          </Contents>
+          <ModalContents />
         </Wrapper>
       )}
     </>
@@ -41,6 +38,7 @@ const Wrapper = styled.div`
 
 const Button = styled.button`
   margin-left: auto;
+  margin-bottom: 20px;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
@@ -62,11 +60,4 @@ const Button = styled.button`
   &:hover {
     background-color: #c82333;
   }
-`;
-
-const Contents = styled.div`
-  margin: 0;
-  text-align: center;
-  width : 70vw;
-  height : 70vh;
 `;
