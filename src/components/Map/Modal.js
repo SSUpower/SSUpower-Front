@@ -23,8 +23,8 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width : 80vw;
-  height : 80vh;
+  width: 80vw;
+  height: 80vh;
   background-color: #fff;
   opacity: 0.9;
   border: none;
@@ -32,8 +32,9 @@ const Wrapper = styled.div`
   padding: 20px;
   z-index: 999;
   display: flex;
-  align-items: center; 
+  align-items: center;
   flex-direction: column;
+  overflow-y: scroll;
 `;
 
 const Button = styled.button`
