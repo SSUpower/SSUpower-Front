@@ -5,21 +5,20 @@ const Td = styled.td`
   text-align: left;
   padding: 8px;
   border: 1px solid #ddd;
-
+  width: 18%;
+  height: 12px;
   &:hover {
     background-color: #ddd;
   }
-`;
-
-const EvenRow = styled(Td)`
-  background-color: #f2f2f2;
+  ${(props) => props.isEvenRow && "border-top: white"}
+  ${(props) => !props.isEvenRow && "border-bottom: none"}
 `;
 
 function ScheduleCell({ day, time, subject, room, onCellClick, isEvenRow }) {
-  const Cell = isEvenRow ? EvenRow : Td;
-
   return (
-    <Cell onClick={onCellClick}>{subject ? `${subject} (${room})` : ""}</Cell>
+    <Td height={"15px"} onClick={onCellClick}>
+      {subject ? `${subject} (${room})` : ""}
+    </Td>
   );
 }
 

@@ -5,38 +5,45 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  font-size: 10px;
 `;
 
 const Label = styled.label`
   margin-top: 10px;
   margin-bottom: 5px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 12px;
 `;
 
 const Select = styled.select`
-  padding: 8px;
+  padding: 4px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
   margin-right: 10px;
   margin-bottom: 10px;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 12px;
 `;
 
 const Input = styled.input`
-  padding: 8px;
+  padding: 4px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
   margin-bottom: 10px;
+  width: 30%;
 `;
 
 const Button = styled.button`
   background-color: #ff4b2b;
   color: white;
-  padding: 8px 12px;
+  padding: 4px 8px;
   margin-left: 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 12px;
 `;
 
 function ScheduleForm({ onSubmit }) {
@@ -66,12 +73,12 @@ function ScheduleForm({ onSubmit }) {
           id="day"
           value={day}
           onChange={(e) => setDay(e.target.value)}>
-          <option value="">Select a day</option>
-          <option value="Monday">Monday</option>
-          <option value="Tuesday">Tuesday</option>
-          <option value="Wednesday">Wednesday</option>
-          <option value="Thursday">Thursday</option>
-          <option value="Friday">Friday</option>
+          <option value="">요일 선택</option>
+          <option value="월요일">월요일</option>
+          <option value="화요일">화요일</option>
+          <option value="수요일">수요일</option>
+          <option value="목요일">목요일</option>
+          <option value="금요일">금요일</option>
         </Select>
         <Label htmlFor="time">Time:</Label>
         <Select
@@ -79,13 +86,14 @@ function ScheduleForm({ onSubmit }) {
           id="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}>
-          <option value="">Select a time</option>
+          <option value="">날짜 선택</option>
           {timeSlots.map((time) => (
             <option key={time} value={time}>
               {time}
             </option>
           ))}
         </Select>
+        <Button type="submit">추가하기</Button>
       </div>
       <div>
         <Label htmlFor="subject">Subject:</Label>
@@ -102,8 +110,6 @@ function ScheduleForm({ onSubmit }) {
           value={room}
           onChange={(e) => setRoom(e.target.value)}
         />
-
-        <Button type="submit">Add Schedule</Button>
       </div>
     </Form>
   );

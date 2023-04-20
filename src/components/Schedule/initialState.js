@@ -1,19 +1,12 @@
-export const daysOfWeek = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-];
+export const daysOfWeek = ["월요일", "화요일", "수요일", "목요일", "금요일"];
 
 export const timeSlots = [];
 
-for (let i = 9; i <= 19; i++) {
+for (let i = 9; i <= 17; i++) {
   for (let j = 0; j < 60; j += 30) {
     const hour = i % 12 === 0 ? 12 : i % 12;
     const minute = j === 0 ? "00" : j;
-    const period = i < 12 ? "AM" : "PM";
-    const time = `${hour}:${minute} ${period}`;
+    const time = `${hour}:${minute}`;
     timeSlots.push(time);
   }
 }

@@ -5,14 +5,20 @@ import ScheduleCell from "./ScheduleCell";
 
 const Table = styled.table`
   border-collapse: collapse;
+  margin: 10px 0;
+  font-size: 12px;
   width: 100%;
-  margin: 20px 0;
+  table-layout: inherit;
 `;
 
 const Th = styled.th`
-  text-align: left;
-  padding: 8px;
+  text-align: right;
+  padding: 4px;
   border: 1px solid #ddd;
+  color:rgba(0,0,0,0.8);
+  ${(props) => props.isEvenRow && "color: transparent;border-top: white"}
+  ${(props) => !props.isEvenRow && "border-bottom: none"}
+}
 `;
 
 function ScheduleTable({ schedule, onCellClick }) {
@@ -22,14 +28,16 @@ function ScheduleTable({ schedule, onCellClick }) {
         <tr>
           <Th>Time</Th>
           {daysOfWeek.map((day) => (
-            <Th key={day}>{day}</Th>
+            <Th key={day}>{day.replace("요일", "")}</Th>
           ))}
         </tr>
       </thead>
       <tbody>
         {timeSlots.map((time, index) => (
           <tr key={time}>
-            <Th>{time}</Th>
+            <Th isEvenRow={index % 2 !== 0}>
+              {time.indexOf(":") === 1 ? time.slice(0, 1) : time.slice(0, 2)}
+            </Th>
             {daysOfWeek.map((day) => (
               <ScheduleCell
                 key={`${day}-${time}`}

@@ -22,8 +22,8 @@ function ScheduleMain() {
   };
 
   const handleCellClick = (day, time) => {
-    const subject = prompt("Enter a subject:");
-    const room = prompt("Enter a room number:");
+    const subject = prompt("과목명을 입력하세요");
+    const room = prompt("강의실 번호를 입력하세요");
     const updatedSchedule = {
       ...schedule,
       [day]: {
