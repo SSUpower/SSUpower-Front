@@ -1,0 +1,141 @@
+import React, { useState } from 'react';
+import styled from 'styled-components/macro';
+
+const JoinContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+`;
+
+const JoinForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+  margin: 0;
+`;
+
+const Label = styled.label`
+  margin: 25px auto 0;
+  display: block;
+  width: inputW;
+  text-align: center;
+`;
+
+const Input = styled.input`
+  background-color: #eee;
+  border: none;
+  margin-bottom: 8px;
+  padding: 12px 15px;
+  width: 100%;
+  text-transform: scale(1.0);
+  border-radius: 20px;
+`;
+
+const SubmitButton = styled.button`
+  margin-top: 10px;
+  border-radius: 20px;
+  border: 1px solid #FF4B2B;
+  background-color: #FF4B2B;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  transform: scale(1.0);
+  outline: none;
+`;
+
+const LoginLinkContainer = styled.div`
+  margin-top: 20px;
+`;
+
+const LoginLinkSpan = styled.span`
+  font-weight: normal;
+`;
+
+const LoginLink = styled.a`
+  text-decoration: underline;
+  color: blue;
+  font-weight: normal;
+
+`;
+
+function Join(props) {
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [School, setSchool] = useState("");
+
+  const onNameHandler = (event) => {
+    setName(event.currentTarget.value);
+  };
+
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onConfirmPasswordHandler = (event) => {
+    setConfirmPassword(event.currentTarget.value);
+  };
+
+  const onSchoolHandler = (event) => {
+    setSchool(event.currentTarget.value);
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    if (Password !== ConfirmPassword) {
+      return alert('비밀번호가 같지 않습니다.')
+    }
+
+    if(School !== "숭실대학교"){
+      return alert('숭실대학교 학생만 가능합니다')
+    }
+  };
+
+  return (
+    <JoinContainer>
+      <JoinForm onSubmit={onSubmitHandler}>
+        <Label>Name</Label>
+        <Input type='text' value={Name} onChange={onNameHandler} />
+
+        <Label>Email</Label>
+        <Input type='email' value={Email} onChange={onEmailHandler} />
+
+        <Label>Password</Label>
+        <Input type='password' value={Password} onChange={onPasswordHandler} />
+
+        <Label>Confirm Password</Label>
+        <Input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
+
+        <Label>School</Label>
+        <Input type='school' value={School} onChange={onSchoolHandler} />
+
+        <SubmitButton>
+          Join
+        </SubmitButton>
+
+        <LoginLinkContainer>
+            <LoginLinkSpan>이미 계정이 있으신가요? </LoginLinkSpan>
+            <LoginLink href="/#/Login">로그인하기</LoginLink>
+        </LoginLinkContainer>
+      </JoinForm>
+
+    </JoinContainer>
+  )
+}
+
+export default Join;
