@@ -1,72 +1,83 @@
 import MarkerY from '../../assets/images/Marker_Yellow.png'
 import Modal from './Modal'; 
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 const { kakao } = window;
 
 export default function KakaoMapScript() {
-    const container = document.getElementById('myMap');
-    const options = {
-        center: new kakao.maps.LatLng(37.4944064, 126.9599747), //중심 좌표
-        level: 3 //확대 레벨
-    };
 
-    const positions = [
-        {
-          title: '정보과학관',
-          latlng: new kakao.maps.LatLng(37.4944064, 126.9599747),
-          id : 2,
-          classId : 303,
-        },
-        {
-          title: '전산관',
-          latlng: new kakao.maps.LatLng(37.495422, 126.959512),
-          id : 1,
-          classId : 201,
-        },
-        {
-          title: '진리관',
-          latlng: new kakao.maps.LatLng(37.496895, 126.957446),
-          id : 3,
-          classId : 103,
-        }
-    ];
+	axios.get('/select')
+		.then((response) => {
+			console.log(response.data);
+		})
+		.catch((error) => {
+		console.log(error);
+	});
 
-    const map = new kakao.maps.Map(container, options); //지도 생성
-    let imageSize = new kakao.maps.Size(50, 50); // 마커이미지의 크기
-    const markerImage = new kakao.maps.MarkerImage(MarkerY, imageSize); //마커 이미지 생성
+	const container = document.getElementById('myMap');
+	const options = {
+	center: new kakao.maps.LatLng(37.4944064, 126.9599747), //중심 좌표
+	level: 3 //확대 레벨
+	};
 
-    positions.forEach(position => {
-        const marker = new kakao.maps.Marker({
-          map: map,
-          position: position.latlng,
-          title: position.title,
-          image: markerImage
-        });
-        
-        //마우스 이벤트 핸들러 함수
-        const handleMouseOver = () => {
-            const newSize = new kakao.maps.Size(60, 60); // 마커 크기를 더 크게 조정
-            marker.setImage(new kakao.maps.MarkerImage(MarkerY, newSize));
-        };
+	const positions = [
+	{
+			title: '정보과학관',
+			latlng: new kakao.maps.LatLng(37.4944064, 126.9599747),
+			id : 2,
+			classId : 303,
+	},
+	{
+			title: '전산관',
+			latlng: new kakao.maps.LatLng(37.495422, 126.959512),
+			id : 1,
+			classId : 201,
+	},
+	{
+			title: '진리관',
+			latlng: new kakao.maps.LatLng(37.496895, 126.957446),
+			id : 3,
+			classId : 103,
+	}
+	];
 
-        const handleMouseOut = () => {
-            marker.setImage(markerImage); // 원래 크기로 되돌리기
-        };
+	const map = new kakao.maps.Map(container, options); //지도 생성
+	let imageSize = new kakao.maps.Size(50, 50); // 마커이미지의 크기
+	const markerImage = new kakao.maps.MarkerImage(MarkerY, imageSize); //마커 이미지 생성
 
-        const handleMarkerClick = () => {
-            // 모달 팝업 열기
-            const modalRoot = document.getElementById('modal-root');
-            ReactDOM.render(<Modal isOpen={true} closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)} positionId={position.id} classId={position.classId} />, modalRoot);
-        };
+	positions.forEach(position => {
+	const marker = new kakao.maps.Marker({
+			map: map,
+			position: position.latlng,
+			title: position.title,
+			image: markerImage
+	});
 
-        // 이벤트 등록
-        kakao.maps.event.addListener(marker, 'mouseover', handleMouseOver);
-        kakao.maps.event.addListener(marker, 'mouseout', handleMouseOut);
-        kakao.maps.event.addListener(marker, 'click', handleMarkerClick);
+	//마우스 이벤트 핸들러 함수
+	const handleMouseOver = () => {
+			const newSize = new kakao.maps.Size(60, 60); // 마커 크기를 더 크게 조정
+			marker.setImage(new kakao.maps.MarkerImage(MarkerY, newSize));
+	};
 
-        //마커 표시
-        marker.setMap(map);
-        return marker;
-      });
+	const handleMouseOut = () => {
+			marker.setImage(markerImage); // 원래 크기로 되돌리기
+	};
+
+	const handleMarkerClick = () => {
+			// 모달 팝업 열기
+			const modalRoot = document.getElementById('modal-root');
+			ReactDOM.render(<Modal isOpen={true} closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)} positionId={position.id} classId={position.classId} />, modalRoot);
+	};
+
+	// 이벤트 등록
+	kakao.maps.event.addListener(marker, 'mouseover', handleMouseOver);
+	kakao.maps.event.addListener(marker, 'mouseout', handleMouseOut);
+	kakao.maps.event.addListener(marker, 'click', handleMarkerClick);
+
+	//마커 표시
+	marker.setMap(map);
+	return marker;
+	});
 }
