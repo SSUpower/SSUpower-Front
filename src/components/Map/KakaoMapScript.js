@@ -15,22 +15,25 @@ export default function KakaoMapScript() {
         {
           title: '정보과학관',
           latlng: new kakao.maps.LatLng(37.4944064, 126.9599747),
-          id : 1
+          id : 2,
+          classId : 303,
         },
         {
           title: '전산관',
           latlng: new kakao.maps.LatLng(37.495422, 126.959512),
-          id : 2
+          id : 1,
+          classId : 201,
         },
         {
           title: '진리관',
           latlng: new kakao.maps.LatLng(37.496895, 126.957446),
-          id : 3
+          id : 3,
+          classId : 103,
         }
     ];
 
     const map = new kakao.maps.Map(container, options); //지도 생성
-    let imageSize = new kakao.maps.Size(50, 50); // 마커이미지의 크기입니다
+    let imageSize = new kakao.maps.Size(50, 50); // 마커이미지의 크기
     const markerImage = new kakao.maps.MarkerImage(MarkerY, imageSize); //마커 이미지 생성
 
     positions.forEach(position => {
@@ -52,17 +55,9 @@ export default function KakaoMapScript() {
         };
 
         const handleMarkerClick = () => {
-            // 인포윈도우 생성
-            // const infowindow = new kakao.maps.InfoWindow({
-            //     content: position.content,
-            //     removable: true // 팝업 닫을 수 있도록 설정
-            // });
-            // // 인포윈도우 지도에 표시
-            // infowindow.open(map, marker);
-
             // 모달 팝업 열기
             const modalRoot = document.getElementById('modal-root');
-            ReactDOM.render(<Modal isOpen={true} closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)} positionId={position.id} />, modalRoot);
+            ReactDOM.render(<Modal isOpen={true} closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)} positionId={position.id} classId={position.classId} />, modalRoot);
         };
 
         // 이벤트 등록

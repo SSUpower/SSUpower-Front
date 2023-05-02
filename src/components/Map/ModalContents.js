@@ -1,29 +1,37 @@
 import React from 'react';
 import styled from "styled-components";
 import TempMap from "../../assets/images/TempMap.png"
+import MapArray from './mapArray';
 
-const ModalContents = ({ ID }) => { 
+const ModalContents = ({ ID, classID }) => { 
 
   let content;
+  let mapImgSrc;
 
   switch(ID) {
     case 1:
-      content = "첫 번째 위치입니다.";
+      content = "전산관 ";
+      mapImgSrc = TempMap;
       break;
     case 2:
-      content = "두 번째 위치입니다.";
+      content = "정보과학관";
+      mapImgSrc = TempMap;
       break;
     case 3:
-      content = "세 번째 위치입니다.";
+      content = "진리관";
+      mapImgSrc = TempMap;
       break;
     default:
       content = "위치 정보가 없습니다.";
   }
 
+  const str = "000010000";
+
   return (
     <Wrapper>
-      <MapImg src={TempMap} />
-      <p>{content}</p>
+      {/* <MapImg src={mapImgSrc} /> */}
+      <p>{content} - {classID}호 </p>
+      <MapArray string={str} row={3} col={3} />
     </Wrapper>
   );
 }

@@ -2,14 +2,14 @@ import React from 'react';
 import styled from "styled-components";
 import ModalContents from './ModalContents';
 
-function Modal({ isOpen, closeModal, positionId}) {
+function Modal({ isOpen, closeModal, positionId, classId}) {
   return (
       <>
       {isOpen && (
         <Wrapper>
           <Button onClick={closeModal}> 창 닫기 </Button>
             <br />
-          <ModalContents ID={positionId} />
+          <ModalContents ID={positionId} classID={classId} />
         </Wrapper>
       )}
     </>
