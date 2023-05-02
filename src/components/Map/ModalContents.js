@@ -2,17 +2,30 @@ import React from 'react';
 import styled from "styled-components";
 import TempMap from "../../assets/images/TempMap.png"
 
-const ModalContents = () => {
+const ModalContents = ({ ID }) => { 
 
-    return (
-		<Wrapper>
+  let content;
+
+  switch(ID) {
+    case 1:
+      content = "첫 번째 위치입니다.";
+      break;
+    case 2:
+      content = "두 번째 위치입니다.";
+      break;
+    case 3:
+      content = "세 번째 위치입니다.";
+      break;
+    default:
+      content = "위치 정보가 없습니다.";
+  }
+
+  return (
+    <Wrapper>
       <MapImg src={TempMap} />
-			<p> 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 
-          내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 
-          내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다.
-          내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. </p>
-		</Wrapper>
-    );
+      <p>{content}</p>
+    </Wrapper>
+  );
 }
 
 export default ModalContents;

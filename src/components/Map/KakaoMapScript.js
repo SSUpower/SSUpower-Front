@@ -15,17 +15,17 @@ export default function KakaoMapScript() {
         {
           title: '정보과학관',
           latlng: new kakao.maps.LatLng(37.4944064, 126.9599747),
-          content: '<div>정보과학관입니다.</div>'
+          id : 1
         },
         {
           title: '전산관',
           latlng: new kakao.maps.LatLng(37.495422, 126.959512),
-          content: '<div>전산관입니다.</div>'
+          id : 2
         },
         {
           title: '진리관',
           latlng: new kakao.maps.LatLng(37.496895, 126.957446),
-          content: '<div>진리관입니다.</div>'
+          id : 3
         }
     ];
 
@@ -62,7 +62,7 @@ export default function KakaoMapScript() {
 
             // 모달 팝업 열기
             const modalRoot = document.getElementById('modal-root');
-            ReactDOM.render(<Modal isOpen={true} closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)} />, modalRoot);
+            ReactDOM.render(<Modal isOpen={true} closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)} positionId={position.id} />, modalRoot);
         };
 
         // 이벤트 등록
