@@ -1,8 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
+
 const MapArray = ({ string, row, col }) => {
-	// 유효성 검사
+
+	// 강의실 color
+  const [cellStyles, setCellStyles] = useState({});
+
+  useEffect(() => {
+    const initialStyles = {};
+    Array.from({ length: row }, (_, i) =>
+      string.slice(i * col, (i + 1) * col).split('')
+    ).forEach((row, rowIndex) => {
+      row.forEach((col, colIndex) => {
+        const style = getCellStyle(col);
+        initialStyles[`${rowIndex}-${colIndex}`] = style;
+      });
+    });
+    setCellStyles(initialStyles);
+  }, [string, row, col]);
+
+  // 유효성 검사
   if (!string || !row || !col || row * col !== string.length) {
     return <div>Invalid Map</div>;
   }
@@ -11,20 +29,48 @@ const MapArray = ({ string, row, col }) => {
   const array = Array.from({ length: row }, (_, i) =>
     string.slice(i * col, (i + 1) * col).split('')
   );
-	
+
+  // 각 문자에 대해 색상을 지정하는 함수
+  const getCellColor = (char) => {
+    switch (char) {
+      case 'A':
+			case 'a':
+        return '#ff0000';
+      case 'B':
+			case 'b':
+        return '#00ff00';
+      case 'C':
+			case 'c':
+        return '#0000ff';
+      default:
+        return '#ffffff';
+    }
+  };
+
+  // 각 셀에 적용할 스타일을 계산하는 함수
+  const getCellStyle = (char) => {
+    const color = getCellColor(char);
+    return { border: `1px solid ${color}`, backgroundColor: color };
+  };
+
   return (
     <Wrapper>
       {array.map((row, rowIndex) => (
         <React.Fragment key={rowIndex}>
           {row.map((col, colIndex) => (
-            <Cell key={colIndex}>{col}</Cell>
+            <Cell
+              key={colIndex}
+              style={cellStyles[`${rowIndex}-${colIndex}`]}
+            >
+              {col}
+            </Cell>
           ))}
           <br />
         </React.Fragment>
       ))}
     </Wrapper>
   );
-}
+};
 
 export default MapArray;
 
@@ -36,7 +82,8 @@ const Wrapper = styled.div`
 
 const Cell = styled.div`
   display: inline-block;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border: 1px solid #ccc;
+  background-color: #ffffff;
 `;

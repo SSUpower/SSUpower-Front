@@ -25,13 +25,13 @@ const ModalContents = ({ ID, classID }) => {
       content = "위치 정보가 없습니다.";
   }
 
-  const str = "000010000";
+  const str = "abbBccCddDA000000000111110Eee1111110eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg1";
 
   return (
     <Wrapper>
       {/* <MapImg src={mapImgSrc} /> */}
       <p>{content} - {classID}호 </p>
-      <MapArray string={str} row={3} col={3} />
+      <MapArray string={str} row={9} col={10} />
     </Wrapper>
   );
 }
