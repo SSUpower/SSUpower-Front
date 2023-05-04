@@ -35,15 +35,29 @@ const MapArray = ({ string, row, col }) => {
     switch (char) {
       case 'A':
 			case 'a':
-        return '#ff0000';
+        return '#E4BCB1';
       case 'B':
 			case 'b':
-        return '#00ff00';
+        return '#FAE39D';
       case 'C':
 			case 'c':
-        return '#0000ff';
+        return '#ACBD98';
+      case 'D':
+      case 'd':
+        return '#A2D0DB';
+      case 'E':
+      case 'e':
+        return '#C4B9D0';
+      case 'F':
+      case 'f':
+        return '#FFE5DB';
+      case 'G':
+      case 'g':
+        return '#D0c8B6';
+      case '0':
+          return '#FAFAFA';
       default:
-        return '#ffffff';
+        return '#272727';
     }
   };
 
