@@ -1,15 +1,27 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import KakaoMapScript from "./KakaoMapScript";
-
-const {kakao} = window;
+import axios from 'axios';
 
 const MapMain = () => {
 
+	const [positions, setPositions] = useState([]);
 	useEffect(() => {
-        KakaoMapScript();
-    }, []);
+		axios.get('/select')
+			.then((response) => {
+				console.log(response.data);
+				setPositions(response.data); // 받아온 데이터를 state에 저장
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	}, [])
+
+	useEffect(() => {
+		if (positions.length > 0) {
+			KakaoMapScript({ positions });
+		}
+	}, [positions]);
 
     return (
 		<Wrapper>
