@@ -11,13 +11,13 @@ const MapArray = ({ string, row, col, depth }) => {
   const getCellColor = (char) => {
     switch (char) {
       case 'A':
-			case 'a':
+      case 'a':
         return '#E4BCB1';
       case 'B':
-			case 'b':
+      case 'b':
         return '#FAE39D';
       case 'C':
-			case 'c':
+      case 'c':
         return '#ACBD98';
       case 'D':
       case 'd':
@@ -54,14 +54,17 @@ const MapArray = ({ string, row, col, depth }) => {
 
   useEffect(() => {
     const initialStyles = {};
-    Array.from({ length: row }, (_, i) =>
-      string.slice(i * col, (i + 1) * col).split('')
-    ).forEach((row, rowIndex) => {
-      row.forEach((col, colIndex) => {
-        const style = getCellStyle(col);
-        initialStyles[`${rowIndex}-${colIndex}`] = style;
-      });
-    });
+    let index = 0;
+    for (let d = 0; d < depth; d++) {
+      for (let r = 0; r < row; r++) {
+        for (let c = 0; c < col; c++) {
+          const char = string[index];
+          const style = getCellStyle(char);
+          initialStyles[`${d}-${r}-${c}`] = style;
+          index++;
+        }
+      }
+    }
     setCellStyles(initialStyles);
   }, [string, row, col, depth, getCellStyle]);
 
@@ -70,14 +73,11 @@ const MapArray = ({ string, row, col, depth }) => {
     return <div>Invalid Map</div>;
   }
 
-  // string을 2차원 배열로 변환
-  const array2D = Array.from({ length: row }, (_, i) =>
-    string.slice(i * col, (i + 1) * col).split('')
-  );
-
-  // 2차원 배열을 3차원 배열로 변환
-  const array3D = Array.from({ length: depth }, (_, i) =>
-    array2D.map(row => [...row])
+  // string을 3차원 배열로 변환
+  const array3D = Array.from({ length: depth }, (_, d) =>
+    Array.from({ length: row }, (_, r) =>
+      Array.from({ length: col }, (_, c) => string[d * row * col + r * col + c])
+    )
   );
 
   return (
@@ -89,7 +89,7 @@ const MapArray = ({ string, row, col, depth }) => {
               {row.map((col, colIndex) => (
                 <Cell
                   key={`${depthIndex}-${rowIndex}-${colIndex}`}
-                  style={cellStyles[`${rowIndex}-${colIndex}`]}
+                  style={cellStyles[`${depthIndex}-${rowIndex}-${colIndex}`]}
                 >
                   {col}
                 </Cell>
