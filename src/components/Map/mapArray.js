@@ -2,33 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 
 
-const MapArray = ({ string, row, col }) => {
+const MapArray = ({ string, row, col, depth }) => {
 
 	// 강의실 color
   const [cellStyles, setCellStyles] = useState({});
-
-  useEffect(() => {
-    const initialStyles = {};
-    Array.from({ length: row }, (_, i) =>
-      string.slice(i * col, (i + 1) * col).split('')
-    ).forEach((row, rowIndex) => {
-      row.forEach((col, colIndex) => {
-        const style = getCellStyle(col);
-        initialStyles[`${rowIndex}-${colIndex}`] = style;
-      });
-    });
-    setCellStyles(initialStyles);
-  }, [string, row, col]);
-
-  // 유효성 검사
-  if (!string || !row || !col || row * col !== string.length) {
-    return <div>Invalid Map</div>;
-  }
-
-  // string을 2차원 배열로 변환
-  const array = Array.from({ length: row }, (_, i) =>
-    string.slice(i * col, (i + 1) * col).split('')
-  );
 
   // 각 문자에 대해 색상을 지정하는 함수
   const getCellColor = (char) => {
@@ -67,17 +44,50 @@ const MapArray = ({ string, row, col }) => {
     return { border: `1px solid ${color}`, backgroundColor: color };
   };
 
+  useEffect(() => {
+    const initialStyles = {};
+    Array.from({ length: row }, (_, i) =>
+      string.slice(i * col, (i + 1) * col).split('')
+    ).forEach((row, rowIndex) => {
+      row.forEach((col, colIndex) => {
+        const style = getCellStyle(col);
+        initialStyles[`${rowIndex}-${colIndex}`] = style;
+      });
+    });
+    setCellStyles(initialStyles);
+  }, [string, row, col, depth, getCellStyle]);
+
+  // 유효성 검사
+  if (!string || !row || !col) {
+    return <div>Invalid Map</div>;
+  }
+
+  // string을 2차원 배열로 변환
+  const array2D = Array.from({ length: row }, (_, i) =>
+    string.slice(i * col, (i + 1) * col).split('')
+  );
+
+  // 2차원 배열을 3차원 배열로 변환
+  const array3D = Array.from({ length: depth }, (_, i) =>
+    array2D.map(row => [...row])
+  );
+
   return (
     <Wrapper>
-      {array.map((row, rowIndex) => (
-        <React.Fragment key={rowIndex}>
-          {row.map((col, colIndex) => (
-            <Cell
-              key={colIndex}
-              style={cellStyles[`${rowIndex}-${colIndex}`]}
-            >
-              {col}
-            </Cell>
+      {array3D.map((depth, depthIndex) => (
+        <React.Fragment key={depthIndex}>
+          {depth.map((row, rowIndex) => (
+            <React.Fragment key={rowIndex}>
+              {row.map((col, colIndex) => (
+                <Cell
+                  key={`${depthIndex}-${rowIndex}-${colIndex}`}
+                  style={cellStyles[`${rowIndex}-${colIndex}`]}
+                >
+                  {col}
+                </Cell>
+              ))}
+              <br />
+            </React.Fragment>
           ))}
           <br />
         </React.Fragment>
