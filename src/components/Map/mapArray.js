@@ -32,9 +32,17 @@ const MapArray = ({ string, row, col, depth }) => {
       case 'g':
         return '#D0c8B6';
       case '0':
-          return '#FAFAFA';
+        return '#FAFAFA';
+      case '9':
+        return '#515E63';
+      case '2':
+        return '#DEEFFF';
+      case '3':
+        return '#CDE2F4';
+      case '4':
+        return '#C0DFF0';
       default:
-        return '#272727';
+        return '#000000';
     }
   };
 

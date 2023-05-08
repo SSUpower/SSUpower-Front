@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import TempMap from "../../assets/images/TempMap.png"
 import MapArray from './mapArray';
 
 const ModalContents = ({ ID, classID }) => { 
@@ -15,7 +14,7 @@ const ModalContents = ({ ID, classID }) => {
       break;
     case 2:
       content = "정보과학관";
-      mapString = "abbBccCddDA000000000111110Eee1111110eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg1abbBccCddDA000000000111110Eee1111110eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg1";
+      mapString = "abbBccCddDA000000000111130Eee1111120eee1111110eee1111190Fff1111110fff1111110Ggg1111110ggg11111104111";
       break;
     case 3:
       content = "진리관";
@@ -40,12 +39,4 @@ const Wrapper = styled.div`
   text-align: center;
   width : 70vw;
   height : 70vh;
-`;
-
-const MapImg = styled.img`
-  &:hover{ // 커서 올리면 이미지 커지게
-      // transform: scale(1.3);
-  }
-  width : 60vw;
-  /* height : 50vh; */
 `;
