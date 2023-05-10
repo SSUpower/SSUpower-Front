@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { timeSlots, daysOfWeek } from "./initialState";
+import Modal from "./ScheduleModal";
 
 function ScheduleForm({ onSubmit }) {
   const [day, setDay] = useState("");
@@ -8,25 +9,8 @@ function ScheduleForm({ onSubmit }) {
   const [endTime, setEndTime] = useState("");
   const [subject, setSubject] = useState("");
   const [room, setRoom] = useState("");
-  const [rowSpan, setRowSpan] = useState(0);
 
-  function calculateRowSpan(startTime, endTime) {
-    const startIdx = timeSlots.indexOf(startTime);
-    const endIdx = timeSlots.indexOf(endTime);
-    return endIdx - startIdx;
-  }
-
-  const handleStartTimeChange = (e) => {
-    setStartTime(e.target.value);
-    const rowSpan = calculateRowSpan(e.target.value, endTime);
-    setRowSpan(rowSpan);
-  };
-
-  const handleEndTimeChange = (e) => {
-    setEndTime(e.target.value);
-    const rowSpan = calculateRowSpan(startTime, e.target.value);
-    setRowSpan(rowSpan);
-  };
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,7 +24,6 @@ function ScheduleForm({ onSubmit }) {
       endTime,
       subject,
       room,
-      rowSpan,
     });
 
     setDay("");
@@ -48,7 +31,10 @@ function ScheduleForm({ onSubmit }) {
     setEndTime("");
     setSubject("");
     setRoom("");
-    setRowSpan(0);
+  };
+
+  const handleClick = () => {
+    setModalOpen(true);
   };
 
   return (
@@ -61,29 +47,35 @@ function ScheduleForm({ onSubmit }) {
         onChange={(e) => setDay(e.target.value)}>
         <option value="">요일 선택</option>
         {daysOfWeek.map((day) => (
-          <option key={day}>{day}</option>
+          <option key={day} value={day}>
+            {day}
+          </option>
         ))}
       </Select>
-      <Label htmlFor="start-time">시작 시간:</Label>
+      <Label htmlFor="startTime">Start Time:</Label>
       <Select
-        name="start-time"
-        id="start-time"
+        name="startTime"
+        id="startTime"
         value={startTime}
-        onChange={handleStartTimeChange}>
-        <option key="">시간 선택</option>
+        onChange={(e) => setStartTime(e.target.value)}>
+        <option value="">시작 시간 선택</option>
         {timeSlots.map((time) => (
-          <option key={time}>{time}</option>
+          <option key={time} value={time}>
+            {time}
+          </option>
         ))}
       </Select>
-      <Label htmlFor="end-time">종료 시간:</Label>
+      <Label htmlFor="endTime">End Time:</Label>
       <Select
-        name="end-time"
-        id="end-time"
+        name="endTime"
+        id="endTime"
         value={endTime}
-        onChange={handleEndTimeChange}>
-        <option value="">시간 선택</option>
+        onChange={(e) => setEndTime(e.target.value)}>
+        <option value="">종료 시간 선택</option>
         {timeSlots.map((time) => (
-          <option key={time}>{time}</option>
+          <option key={time} value={time}>
+            {time}
+          </option>
         ))}
       </Select>
       <Label htmlFor="subject">Subject:</Label>
@@ -101,6 +93,12 @@ function ScheduleForm({ onSubmit }) {
         onChange={(e) => setRoom(e.target.value)}
       />
       <Button type="submit">추가하기</Button>
+      <div>
+        <Button onClick={handleClick}>빈 강의실 추천 받기</Button>
+        {modalOpen && (
+          <Modal isOpen={modalOpen} closeModal={() => setModalOpen(false)} />
+        )}
+      </div>
     </Form>
   );
 }

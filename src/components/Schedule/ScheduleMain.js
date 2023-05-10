@@ -1,42 +1,28 @@
 import React, { useState } from "react";
 import ScheduleTable from "./ScheduleTable";
 import ScheduleForm from "./ScheduleForm";
-import initialState from "./initialState";
+import initialState, { timeSlots } from "./initialState";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
 
-  const onSubmit = ({ day, startTime, endTime, subject, room, rowSpan }) => {
+  const onSubmit = ({ day, startTime, endTime, subject, room }) => {
     setSchedule((prevSchedule) => {
-      return {
-        ...prevSchedule,
-        [day]: {
-          ...prevSchedule[day],
-          [startTime]: {
-            subject: subject,
-            room: room,
-            rowSpan: rowSpan,
-          },
-        },
-      };
+      const newSchedule = { ...prevSchedule };
+      for (
+        let i = timeSlots.indexOf(startTime);
+        i < timeSlots.indexOf(endTime);
+        i++
+      ) {
+        newSchedule[day][timeSlots[i]] = {
+          subject: subject,
+          room: room,
+          endTime: endTime,
+        };
+      }
+      return newSchedule;
     });
   };
-
-  // const handleCellClick = (day, startTime) => {
-  //   const subject = prompt("과목명을 입력하세요");
-  //   const room = prompt("강의실 번호를 입력하세요");
-  //   const updatedSchedule = {
-  //     ...schedule,
-  //     [day]: {
-  //       ...schedule[day],
-  //       [startTime]: {
-  //         subject,
-  //         room,
-  //       },
-  //     },
-  //   };
-  //   setSchedule(updatedSchedule);
-  // };
 
   return (
     <>
