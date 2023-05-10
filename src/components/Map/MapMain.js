@@ -7,7 +7,7 @@ const MapMain = () => {
 
 	const [positions, setPositions] = useState([]);
 	useEffect(() => {
-		axios.get('/select')
+		axios.get('/map/select')
 			.then((response) => {
 				console.log(response.data);
 				setPositions(response.data); // 받아온 데이터를 state에 저장
