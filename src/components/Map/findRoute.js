@@ -45,8 +45,8 @@ const findRoute = (classID, array3D) => {
     console.log(`Depth: ${Destdepth}, Class Location: ${classLocation} Sdepth: ${start[0]}, Srow: ${start[1]}, Scol: ${start[2]}`);
     // BFS 호출
     // console.log(`${array3D[0][5][4]}`);
-    const visited = BFS(start, Destdepth, classLocation, array3D );
-    console.log(visited);
+    const route = BFS(start, Destdepth, classLocation, array3D );
+    return route;
   }; 
 
 export default findRoute

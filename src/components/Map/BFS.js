@@ -23,20 +23,6 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
     visited.add(key);
 
     // check for neighboring positions and add them to the queue if they haven't been visited yet
-    if (row > 0 && !visited.has(`${depth}-${row-1}-${col}`)) {
-			if (depth === Destdepth && array3D[depth][row-1][col] === classLocation) {
-				return [...current, [depth, row-1, col]];
-			}
-			else if (canMoveTo(array3D[depth][row-1][col]))
-				queue.push([...current, [depth, row-1, col]]);
-    }
-    if (row < ROW-1 && !visited.has(`${depth}-${row+1}-${col}`)) {
-      if (depth === Destdepth && array3D[depth][row+1][col] === classLocation) {
-				return [...current, [depth, row+1, col]];
-			}
-			else if (canMoveTo(array3D[depth][row+1][col]))
-				queue.push([...current, [depth, row+1, col]]);
-    }
     if (col > 0 && !visited.has(`${depth}-${row}-${col-1}`)) {
       if (depth === Destdepth && array3D[depth][row][col-1] === classLocation) {
 				return [...current, [depth, row, col-1]];
@@ -50,6 +36,20 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
 			}
 			else if (canMoveTo(array3D[depth][row][col+1]))
 				queue.push([...current, [depth, row, col+1]]);
+    }
+    if (row > 0 && !visited.has(`${depth}-${row-1}-${col}`)) {
+			if (depth === Destdepth && array3D[depth][row-1][col] === classLocation) {
+				return [...current, [depth, row-1, col]];
+			}
+			else if (canMoveTo(array3D[depth][row-1][col]))
+				queue.push([...current, [depth, row-1, col]]);
+    }
+    if (row < ROW-1 && !visited.has(`${depth}-${row+1}-${col}`)) {
+      if (depth === Destdepth && array3D[depth][row+1][col] === classLocation) {
+				return [...current, [depth, row+1, col]];
+			}
+			else if (canMoveTo(array3D[depth][row+1][col]))
+				queue.push([...current, [depth, row+1, col]]);
     }
 
     // handle going up or down the stairs

@@ -7,6 +7,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
 
 	// 강의실 color
   const [cellStyles, setCellStyles] = useState({});
+  const [mapstring, setMapstring] = useState(string);
 
   useEffect(() => {
     const initialStyles = {};
@@ -14,7 +15,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
     for (let d = 0; d < depth; d++) {
       for (let r = 0; r < row; r++) {
         for (let c = 0; c < col; c++) {
-          const char = string[index];
+          const char = mapstring[index];
           const style = getCellStyle(char);
           initialStyles[`${d}-${r}-${c}`] = style;
           index++;
@@ -22,7 +23,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
       }
     }
     setCellStyles(initialStyles);
-  }, [string, row, col, depth ]);
+  }, [mapstring, row, col, depth ]);
 
   // 유효성 검사
   if (!string || !row || !col || !depth ) {
@@ -37,21 +38,40 @@ const MapArray = ({ string, row, col, depth, classID }) => {
   );
 
   // findRoute 함수에 array3D를 전달
-  const route = findRoute(classID, array3D);
+  const routes = findRoute(classID, array3D);
+
+  const render = (routes) => {
+    let modifiedString = string; 
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index >= routes.length) {
+        clearInterval(interval);
+        return;
+      }
+      const [depth, row, col] = routes[index];
+      modifiedString = modifiedString.substring(0, depth * 100 + row * 10 + col) + '%' + modifiedString.substring(depth * 100 + row * 10 + col + 1);
+      setMapstring(modifiedString);
+      index++;
+    }, 500);
+  };
+  
+  const handleClick = () => {
+    render(routes);
+  };
+
+  const currentMap = array3D[0];
 
   return (
     <Wrapper>
        <div>
-       {route}
-      </div>
-      {array3D.map((depth, depthIndex) => (
-        <React.Fragment key={depthIndex}>
-          {depth.map((row, rowIndex) => (
+       <button onClick={handleClick}> Render </button>
+      </div><br />
+          {currentMap.map((row, rowIndex) => (
             <React.Fragment key={rowIndex}>
               {row.map((col, colIndex) => (
                 <Cell
-                  key={`${depthIndex}-${rowIndex}-${colIndex}`}
-                  style={cellStyles[`${depthIndex}-${rowIndex}-${colIndex}`]}
+                  key={`${0}-${rowIndex}-${colIndex}`}
+                  style={cellStyles[`${0}-${rowIndex}-${colIndex}`]}
                 >
                   {col}
                   {/* ㅤ */}
@@ -60,9 +80,6 @@ const MapArray = ({ string, row, col, depth, classID }) => {
               <br />
             </React.Fragment>
           ))}
-          <br />
-        </React.Fragment>
-      ))}
     </Wrapper>
   );
 };

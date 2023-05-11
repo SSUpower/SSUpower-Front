@@ -31,6 +31,8 @@ const getCellColor = (char) => {
         return '#CDE2F4';
       case '4':
         return '#C0DFF0';
+      case '%':
+        return '#FF4B2B';
       default:
         return '#000000';
     }
