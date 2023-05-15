@@ -51,7 +51,8 @@ function ScheduleTable({ schedule }) {
                   time={time}
                   subject={subject}
                   room={room}
-                  isEvenRow={index % 2 !== 0}>
+                  isEvenRow={index % 2 !== 0}
+                  style={subject ? { backgroundColor: "#e2eef9" } : {}}>
                   {subject ? `${subject} (${room})` : ""}
                 </Td>
                 {daysOfWeek.slice(1).map((day) => (
@@ -61,7 +62,12 @@ function ScheduleTable({ schedule }) {
                     time={time}
                     subject={schedule[day][time].subject}
                     room={schedule[day][time].room}
-                    isEvenRow={index % 2 !== 0}>
+                    isEvenRow={index % 2 !== 0}
+                    style={
+                      schedule[day][time].subject
+                        ? { backgroundColor: "#e2eef9" }
+                        : {}
+                    }>
                     {schedule[day][time].subject
                       ? `${schedule[day][time].subject} (${schedule[day][time].room})`
                       : ""}
@@ -77,14 +83,6 @@ function ScheduleTable({ schedule }) {
 }
 
 export default ScheduleTable;
-
-const pastelColors = {
-  pink: "#FFD1DC",
-  blue: "#ADD8E6",
-  yellow: "#FFFACD",
-  green: "#90EE90",
-  purple: "#E6E6FA",
-};
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -102,29 +100,8 @@ const Th = styled.th`
   height: 18px;
   border: 1px solid #ddd;
   color: #333;
-  ${(props) =>
-    props.isEvenRow &&
-    CSS`
-      color: transparent;
-      border-top: white;
-    `}
-  ${(props) =>
-    !props.isEvenRow &&
-    CSS`
-      border-bottom: none;
-    `}
-  background-color: ${(props) =>
-    props.day === "월"
-      ? pastelColors.pink
-      : props.day === "화"
-      ? pastelColors.blue
-      : props.day === "수"
-      ? pastelColors.yellow
-      : props.day === "목"
-      ? pastelColors.green
-      : props.day === "금"
-      ? pastelColors.purple
-      : ""};
+  ${(props) => props.isEvenRow && "color: transparent; border-top: white"}
+  ${(props) => !props.isEvenRow && "border-bottom: none"}
 `;
 
 const Td = styled.td`
@@ -135,26 +112,6 @@ const Td = styled.td`
   white-space: nowrap;
   text-overflow: ellipsis;
   height: 30px;
-  ${(props) =>
-    props.isEvenRow &&
-    CSS`
-      border-top: white;
-    `}
-  ${(props) =>
-    !props.isEvenRow &&
-    CSS`
-      border-bottom: none;
-    `}
-  background-color: ${(props) =>
-    props.day === "월"
-      ? pastelColors.pink
-      : props.day === "화"
-      ? pastelColors.blue
-      : props.day === "수"
-      ? pastelColors.yellow
-      : props.day === "목"
-      ? pastelColors.green
-      : props.day === "금"
-      ? pastelColors.purple
-      : ""};
+  ${(props) => props.isEvenRow && "border-top: white"}
+  ${(props) => !props.isEvenRow && "border-bottom: none"}
 `;
