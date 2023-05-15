@@ -51,13 +51,13 @@ const Button = styled.button`
   text-decoration: none;
 
   color: #ffffff;
-  background-color: #dc3545;
+  background-color: #FF4B2B;
 
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   transition: 0.5s;
   
   &:hover {
-    background-color: #c82333;
+    background-color: #C92A0D;
   }
 `;

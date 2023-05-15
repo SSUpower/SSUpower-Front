@@ -22,7 +22,7 @@ const getCellColor = (char) => {
       case 'g':
         return '#D0c8B6';
       case '0':
-        return '#FAFAFA';
+        return '#D3D3D3';
       case '9':
         return '#515E63';
       case '2':
@@ -34,7 +34,7 @@ const getCellColor = (char) => {
       case '%':
         return '#FF4B2B';
       default:
-        return '#000000';
+        return '#FAFAFA';
     }
   };
   

@@ -78,8 +78,8 @@ const MapArray = ({ string, row, col, depth, classID }) => {
                 key={`${renderDepth}-${rowIndex}-${colIndex}`}
                 style={cellStyles[`${renderDepth}-${rowIndex}-${colIndex}`]}
               >
-                {col}
-                {/* ㅤ */}
+                {/* {col} */}
+                ㅤ
               </Cell>
             ))}
             <br />
@@ -103,6 +103,7 @@ const Cell = styled.div`
   height: 30px;
   border: 1px solid #ccc;
   background-color: #ffffff;
+  font-family: "Noto Sans KR", sans-serif;
 `;
 
 const RenderButton = styled.button`
