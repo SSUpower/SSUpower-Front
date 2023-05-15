@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import styled from "styled-components";
 import KakaoMapScript from "./KakaoMapScript";
 
-const {kakao} = window;
+const {kakao} = window; //eslint-disable-next-line
 
 const MapMain = () => {
 

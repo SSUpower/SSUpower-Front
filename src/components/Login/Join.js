@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import Navbar from "../Navigator/Navigator";
 
 const JoinContainer = styled.div`
   display: flex;
@@ -108,6 +109,7 @@ function Join(props) {
 
   return (
     <JoinContainer>
+      <Navbar></Navbar>
       <JoinForm onSubmit={onSubmitHandler}>
         <Label>Name</Label>
         <Input type='text' value={Name} onChange={onNameHandler} />
