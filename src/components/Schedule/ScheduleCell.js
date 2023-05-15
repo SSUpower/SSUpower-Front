@@ -1,26 +1,40 @@
 import React from "react";
 import styled from "styled-components";
 
-const Td = styled.td`
-  text-align: left;
-  padding: 8px;
-  border: 1px solid #ddd;
-
-  &:hover {
-    background-color: #ddd;
-  }
-`;
-
-const EvenRow = styled(Td)`
-  background-color: #f2f2f2;
-`;
-
-function ScheduleCell({ day, time, subject, room, onCellClick, isEvenRow }) {
-  const Cell = isEvenRow ? EvenRow : Td;
-
+function ScheduleCell({
+  day,
+  time,
+  subject,
+  room,
+  isEvenRow,
+  rowSpan,
+  colSpan,
+}) {
   return (
-    <Cell onClick={onCellClick}>{subject ? `${subject} (${room})` : ""}</Cell>
+    <Td
+      isEvenRow={isEvenRow}
+      rowSpan={rowSpan}
+      colSpan={colSpan}
+      style={
+        rowSpan
+          ? { backgroundColor: "lavenderblush" }
+          : { backgroundColor: "white" }
+      }>
+      {subject ? `${subject} (${room})` : ""}
+    </Td>
   );
 }
 
 export default ScheduleCell;
+
+const Td = styled.td`
+  text-align: center;
+  border: 1px solid #ddd;
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 30px;
+  ${(props) => props.isEvenRow && "border-top: white"}
+  ${(props) => !props.isEvenRow && "border-bottom: none"}
+`;

@@ -1,48 +1,33 @@
 import React, { useState } from "react";
 import ScheduleTable from "./ScheduleTable";
 import ScheduleForm from "./ScheduleForm";
-import initialState from "./initialState";
+import initialState, { timeSlots } from "./initialState";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
 
-  const onSubmit = ({ day, time, subject, room }) => {
+  const onSubmit = ({ day, startTime, endTime, subject, room }) => {
     setSchedule((prevSchedule) => {
-      return {
-        ...prevSchedule,
-        [day]: {
-          ...prevSchedule[day],
-          [time]: {
-            subject: subject,
-            room: room,
-          },
-        },
-      };
+      const newSchedule = { ...prevSchedule };
+      for (
+        let i = timeSlots.indexOf(startTime);
+        i < timeSlots.indexOf(endTime);
+        i++
+      ) {
+        newSchedule[day][timeSlots[i]] = {
+          subject: subject,
+          room: room,
+          endTime: endTime,
+        };
+      }
+      return newSchedule;
     });
-  };
-
-  const handleCellClick = (day, time) => {
-    const subject = prompt("Enter a subject:");
-    const room = prompt("Enter a room number:");
-    const updatedSchedule = {
-      ...schedule,
-      [day]: {
-        ...schedule[day],
-        [time]: {
-          subject,
-          room,
-        },
-      },
-    };
-    setSchedule(updatedSchedule);
   };
 
   return (
     <>
-      <div>
-        <ScheduleForm onSubmit={onSubmit} />
-        <ScheduleTable schedule={schedule} onCellClick={handleCellClick} />
-      </div>
+      <ScheduleForm onSubmit={onSubmit} />
+      <ScheduleTable schedule={schedule} />
     </>
   );
 }
