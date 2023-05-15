@@ -8,15 +8,15 @@ const ModalContents = ({ ID, classID }) => {
   let mapString
 
   switch(ID) {
-    case 1:
+    case 19:
       content = "전산관 ";
       mapString = "";
       break;
-    case 2:
+    case 21:
       content = "정보과학관";
       mapString = "abbBccCddDA000000000111130Eee1111120eee1111110eee1111190Fff1111110fff1111110Ggg1111110ggg11111104111abbBccCddDA000000000111130Eee1111120eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg11111104111abbBccCddDA000000000111130Eee1111120eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg11111104111abbBccCddDA000000000111130Eee1111120eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg11111104111abbBccCddDA000000000111130Eee1111120eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg11111104111abbBccCddDA000000000111130Eee1111120eee1111110eee1111110Fff1111110fff1111110Ggg1111110ggg11111104111";
       break;
-    case 3:
+    case 11:
       content = "진리관";
       mapString = "";
       break;
