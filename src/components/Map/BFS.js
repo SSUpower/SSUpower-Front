@@ -57,7 +57,7 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
       if (depth < array3D.length-1 && !visited.has(`${depth+1}-${row}-${col}`)) {
         queue.push([...current, [depth+1, row, col]]);
       }
-    } else if (array3D[depth][row][col] === '2') {
+    } else if (depth!=1 && array3D[depth][row][col] === '2') {
       if (depth > 0 && !visited.has(`${depth-1}-${row}-${col}`)) {
         queue.push([...current, [depth-1, row, col]]);
       }

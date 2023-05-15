@@ -8,6 +8,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
 	// 강의실 color
   const [cellStyles, setCellStyles] = useState({});
   const [mapstring, setMapstring] = useState(string);
+  const [renderDepth, setRenderDepth] = useState(0);
 
   useEffect(() => {
     const initialStyles = {};
@@ -51,6 +52,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
       const [depth, row, col] = routes[index];
       modifiedString = modifiedString.substring(0, depth * 100 + row * 10 + col) + '%' + modifiedString.substring(depth * 100 + row * 10 + col + 1);
       setMapstring(modifiedString);
+      setRenderDepth(depth);
       index++;
     }, 500);
   };
@@ -63,23 +65,26 @@ const MapArray = ({ string, row, col, depth, classID }) => {
 
   return (
     <Wrapper>
-       <div>
-       <button onClick={handleClick}> Render </button>
-      </div><br />
-          {currentMap.map((row, rowIndex) => (
-            <React.Fragment key={rowIndex}>
-              {row.map((col, colIndex) => (
-                <Cell
-                  key={`${0}-${rowIndex}-${colIndex}`}
-                  style={cellStyles[`${0}-${rowIndex}-${colIndex}`]}
-                >
-                  {col}
-                  {/* ㅤ */}
-                </Cell>
-              ))}
-              <br />
-            </React.Fragment>
-          ))}
+      <br /> <div>
+        <RenderButton onClick={handleClick}> Render </RenderButton>
+      </div>
+      <div>
+        <RenderText> {renderDepth + 1} 층 </RenderText>
+      </div>
+        {currentMap.map((row, rowIndex) => (
+          <React.Fragment key={rowIndex}>
+            {row.map((col, colIndex) => (
+              <Cell
+                key={`${renderDepth}-${rowIndex}-${colIndex}`}
+                style={cellStyles[`${renderDepth}-${rowIndex}-${colIndex}`]}
+              >
+                {col}
+                {/* ㅤ */}
+              </Cell>
+            ))}
+            <br />
+          </React.Fragment>
+        ))}
     </Wrapper>
   );
 };
@@ -98,4 +103,30 @@ const Cell = styled.div`
   height: 30px;
   border: 1px solid #ccc;
   background-color: #ffffff;
+`;
+
+const RenderButton = styled.button`
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    transform: scale(1.0);
+    outline: none;
+
+    &:hover {
+    background-color: #FF4B2B;
+    }
+`;
+
+const RenderText = styled.p`
+    color: #FF4B2B;
+    font-family: 'ChosunGu';
+    font-size: 14px;
+    font-weight: bold;
 `;
