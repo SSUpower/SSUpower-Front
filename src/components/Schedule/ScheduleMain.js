@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ScheduleTable from "./ScheduleTable";
 import ScheduleForm from "./ScheduleForm";
 import initialState, { timeSlots } from "./initialState";
+import axios from "axios";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
+
+  useEffect(() => {
+    axios
+      .get("/timetable/select")
+      .then((response) => {
+        console.log(response.data);
+        setSchedule(response.data); // 받아온 데이터를 state에 저장
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const onSubmit = ({ day, startTime, endTime, subject, room }) => {
     setSchedule((prevSchedule) => {

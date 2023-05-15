@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { timeSlots, daysOfWeek } from "./initialState";
 import Modal from "./ScheduleModal";
+import axios from "axios";
 
 function ScheduleForm({ onSubmit }) {
   const [day, setDay] = useState("");
@@ -18,6 +19,14 @@ function ScheduleForm({ onSubmit }) {
       return;
     }
 
+    const scheduleData = {
+      day,
+      startTime,
+      endTime,
+      subject,
+      room,
+    };
+
     onSubmit({
       day,
       startTime,
@@ -31,6 +40,20 @@ function ScheduleForm({ onSubmit }) {
     setEndTime("");
     setSubject("");
     setRoom("");
+
+    axios
+      .post("/timetable/insert", scheduleData)
+      .then((res) => {
+        console.log(res.data);
+        setDay("");
+        setStartTime("");
+        setEndTime("");
+        setSubject("");
+        setRoom("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleClick = () => {
