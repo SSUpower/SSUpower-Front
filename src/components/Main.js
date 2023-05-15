@@ -1,12 +1,13 @@
 import React from "react";
-import MapMain from "./Map/MapMain";
 import ScheduleMain from "./Schedule/ScheduleMain";
+import GlobalStyle from "../fonts/GlobalStyle";
 
 const Main = () => {
   return (
-    // <h1> SSU POWER </h1>
-    // <MapMain />
-    <ScheduleMain />
+    <>
+      <GlobalStyle />
+      <ScheduleMain />
+    </>
   );
 };
 
