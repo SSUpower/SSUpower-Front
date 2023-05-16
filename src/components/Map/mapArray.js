@@ -4,11 +4,20 @@ import getCellStyle from './getCellStyle';
 import findRoute from './findRoute';
 
 const MapArray = ({ string, row, col, depth, classID }) => {
-
-	// 강의실 color
   const [cellStyles, setCellStyles] = useState({});
   const [mapstring, setMapstring] = useState(string);
   const [renderDepth, setRenderDepth] = useState(0);
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const [isMobile, setiIsMobile] = useState(30);
+
+  useEffect(() => {
+    const resizeListener = () => {
+      setInnerWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", resizeListener);
+    if (innerWidth < 510) setiIsMobile(20);
+    else setiIsMobile(30);
+  }, [innerWidth, isMobile]);
 
   useEffect(() => {
     const initialStyles = {};
@@ -63,6 +72,15 @@ const MapArray = ({ string, row, col, depth, classID }) => {
 
   const currentMap = array3D[0];
 
+  const Cell = styled.div`
+  display: inline-block;
+  width: ${isMobile}px;
+  height: ${isMobile}px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  font-family: "Noto Sans KR", sans-serif;
+`;
+
   return (
     <Wrapper>
       <br /> <div>
@@ -87,6 +105,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
         ))}
     </Wrapper>
   );
+
 };
 
 export default MapArray;
@@ -94,16 +113,6 @@ export default MapArray;
 const Wrapper = styled.div`
   width : 70vw;
   height : 70vh;
-  border: 1px solid #ccc;
-`;
-
-const Cell = styled.div`
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ccc;
-  background-color: #ffffff;
-  font-family: "Noto Sans KR", sans-serif;
 `;
 
 const RenderButton = styled.button`
