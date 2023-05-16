@@ -1,6 +1,49 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../Navigator/Navigator";
+import axios from 'axios';
+
+function LoginPage() {
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    console.log('Email', Email);
+    console.log('Password', Password);
+  };
+
+  return (
+    <LoginWrapper>
+      <Navbar />
+
+      <div className="login-page">
+        <LoginForm onSubmit={onSubmitHandler}>
+          <Label inputW="200px"> Email</Label>
+          <Input type="email" value={Email} onChange={onEmailHandler} />
+          <Label inputW="200px">Password</Label>
+          <Input type="password" value={Password} onChange={onPasswordHandler} />
+
+          <SubmitButton>Login</SubmitButton>
+        </LoginForm>
+
+        <div style={{ marginTop: "20px" }}>
+          아직 회원이 아니신가요? <JoinLink href="/#/Join">회원가입</JoinLink>
+        </div>
+      </div>
+    </LoginWrapper>
+  );
+}
+
+export default LoginPage;
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -9,7 +52,6 @@ const LoginWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
-//   position: relative;
 `;
 
 const LoginForm = styled.form`
@@ -19,9 +61,6 @@ const LoginForm = styled.form`
   flex-direction: column;
   font-weight: bold;
   margin-bottom: 20px;
-//   position: relative;
-//   top: 0;
-//   left: 0;
 `;
 
 const Label = styled.label`
@@ -69,51 +108,4 @@ const SubmitButton = styled.button`
 const JoinLink= styled.a`
     color: blue;
 `;
-
-function LoginPage() {
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-
-    console.log('Email', Email);
-    console.log('Password', Password);
-  };
-
-  const [isMenuOpen, setMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
-
-  return (
-    <LoginWrapper>
-      <Navbar toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
-      <div className="login-page">
-        <LoginForm onSubmit={onSubmitHandler}>
-          <Label inputW="200px"> Email</Label>
-          <Input type="email" value={Email} onChange={onEmailHandler} />
-          <Label inputW="200px">Password</Label>
-          <Input type="password" value={Password} onChange={onPasswordHandler} />
-
-          <SubmitButton>Login</SubmitButton>
-        </LoginForm>
-
-        <div style={{ marginTop: "20px" }}>
-          아직 회원이 아니신가요? <JoinLink href="/#/Join">회원가입</JoinLink>
-        </div>
-      </div>
-    </LoginWrapper>
-  );
-}
-
-export default LoginPage;
 

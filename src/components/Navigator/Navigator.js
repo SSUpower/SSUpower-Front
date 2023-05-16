@@ -6,51 +6,36 @@ import { AiOutlineSearch } from "react-icons/ai";
 const NavbarContainer = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
+  left: 0%;
   right: 0;
   background-color: #FF4B2B;
   color: #fff;
   display: flex;
   align-items: center;
   padding: 10px 10px; 
-  // justify-content: space-between;
   width: 100%;
   flex-direction: row;
-
-
-  // & > div:nth-child(1),
-  // & > div:nth-child(2),
-  // & > div:nth-child(3),
-  // & > div:nth-child(4){
-  //     cursor: pointer;
-  //     color: #fff;
-  //     transition: color 0.2s ease-out;
-  //     &:hover{
-  //         color: #333;
-  //     }
-  // }
 `;
 const NavItems= styled.div`
   display: flex;
-  align-items: center
+  // pisition: fixed;
+  align-items: center;
   margin-left: auto;
-  padding 0px 10px 0px 10px; 
-  margin-left: relative;
+  padding:0px 10px 0px 10px; 
+
+  @media screen  {
+    position: relative; 
+    margin-left: 0;
+  }
+  
 `;
 
 const NavItem = styled.div`
   margin-right: 20px; 
-  position: relative;
-  // padding-left: 0;
-  //flex-direction: column;
   cursor: pointer;
   color: #fff;
-  // margin: 5px 0px 5px 0px;
-  // transition: color 0.2s ease-out;
-  // display: block;
   &:hover{
         color: #333;
-  }
   }
 `;
 
@@ -149,43 +134,42 @@ const SearchButton = styled.button`
 
 const Overlay = styled.div`
   position: fixed;
+  display: fixed;
   top: 0;
   left: 0; 
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: 10; 
+  z-index: 10;
   display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  width: 50%;
-  transform: translateX(${({ isOpen }) => (isOpen ? "100%" : "0%")});
+  width: 70%;
+  transform: translateX(${({ isOpen }) => (isOpen ? "0%" : "100%")});
   transition: transform 0.3s ease-in-out;
 `;
 
-const Lesson = styled.div`
-  display: flex;
-`;
+// const Lesson = styled.div`
+//   display: flex;
+// `;
 
-const NextLesson = styled.div`
-  cursor: pointer;
-  margin-left: 20px; 
-  display: flex; 
-  color: #fff;
-  position: absolute; 
-  font-size: 16px;
-  // display: flex; 
-  align-itmes: center;
-  // justify-content: center;
-  flex-direction: row; 
-  padding: 10px 10px;
-  transform: translateX(100%);
-  // margin-left: auto;
-  // padding-left: 0;
+// const NextLesson = styled.div`
+//   cursor: pointer;
+//   margin-left: 20px; 
+//   display: flex; 
+//   color: #fff;
+//   position: absolute; 
+//   font-size: 16px;
+//   align-itmes: center;
+//   flex-direction: row; 
+//   padding: 10px 10px;
+//   transform: translateX(100%);
+//   // margin-left: auto;
+//   // padding-left: 0;
 
 
-  &: hover {
-    color: #333;
-  }
+//   &: hover {
+//     color: #333;
+//   }
   
-`;
+// `;
 
 const Logo = styled.div`
   display: flex;
@@ -198,12 +182,18 @@ const LogoText = styled.h1`
   margin-left: 0px;
 `;
 
-const Navbar = ({ toggleMenu, isMenuOpen }) => {
+function Navbar(){
   const [isSearchOpen, setSearchOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   const handleSearchClick = () => {
     setSearchOpen(!isSearchOpen);
   };
+
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
+
 
 
 return (
@@ -217,6 +207,8 @@ return (
         <NavItem>지도</NavItem>
         <NavItem>Home </NavItem>
         <NavItem> 시간표 </NavItem>
+        <NavItem> Login </NavItem>
+        <NavItem> Join </NavItem>
       </NavItems>
     
 
@@ -232,14 +224,12 @@ return (
           <AiOutlineSearch />
         </SearchButton>
       </Search>
-
-
-      <Lesson> 
+  
+      {/* <Lesson> 
         <NextLesson> 다음수업 </NextLesson>
-      </Lesson>s
-
+      </Lesson> */}
     </NavbarContainer>
-    <Overlay isOpen={isMenuOpen} onClick={toggleMenu} />
+    <Overlay isOpen = {isMenuOpen} onClick={toggleMenu} />
   </>
 );
 };
