@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import KakaoMapScript from "./KakaoMapScript";
 import GlobalStyle from "../../fonts/GlobalStyle";
+import Navbar from "../Navigator/Navigator";
 import axios from 'axios';
 
 const MapMain = () => {
@@ -26,6 +27,7 @@ const MapMain = () => {
 
     return (
 		<Wrapper>
+			<Navbar />
 			<GlobalStyle />
 			<div id='myMap' style={{
 				width: '100vw',

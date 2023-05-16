@@ -40,8 +40,8 @@ const Input = styled.input`
 const SubmitButton = styled.button`
   margin-top: 10px;
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
+  border: 1px solid #2e3a51;
+  background-color: #2e3a51;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;

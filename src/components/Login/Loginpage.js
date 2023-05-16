@@ -21,6 +21,23 @@ function LoginPage() {
     console.log('Password', Password);
   };
 
+  const postTest = () => {
+    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/",{
+      email : "mingi@naver.com",
+      password : "1234",
+    })
+    .then((response)=> {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const LoginHandler = () => {
+    postTest();
+  };
+
   return (
     <LoginWrapper>
       <Navbar />
@@ -32,7 +49,7 @@ function LoginPage() {
           <Label inputW="200px">Password</Label>
           <Input type="password" value={Password} onChange={onPasswordHandler} />
 
-          <SubmitButton>Login</SubmitButton>
+          <SubmitButton onClick={LoginHandler} >Login</SubmitButton>
         </LoginForm>
 
         <div style={{ marginTop: "20px" }}>
@@ -82,8 +99,8 @@ const Input = styled.input`
 const SubmitButton = styled.button`
   margin-top: 10px;
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
+  border: 1px solid #2e3a51;
+  background-color: #2e3a51;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
@@ -96,11 +113,11 @@ const SubmitButton = styled.button`
 
   &:hover {
     background-color: #fff;
-    color: #FF4B2B;
+    color: #2e3a51;
   }
 
   &:active {
-    background-color: #FF4B2B;
+    background-color: #2e3a51;
     color: #fff;
   }
 `;

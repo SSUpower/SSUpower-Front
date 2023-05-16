@@ -8,13 +8,14 @@ const NavbarContainer = styled.div`
   top: 0;
   left: 0%;
   right: 0;
-  background-color: #FF4B2B;
+  background-color: #2e3a51;
   color: #fff;
   display: flex;
   align-items: center;
   padding: 10px 10px; 
   width: 100%;
   flex-direction: row;
+  z-index: 999;
 `;
 const NavItems= styled.div`
   display: flex;
@@ -61,7 +62,7 @@ const HamburgerMenu = styled.div`
       isOpen &&
 
       `
-      background-color: #FF4B2B;
+      background-color: #2e3a51;
       div {
         background-color: #333;
       }
@@ -106,8 +107,8 @@ const SearchInput = styled.input`
 
 const SearchButton = styled.button`
   border-radius: 5px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
+  border: 1px solid #2e3a51;
+  background-color: #2e3a51;
   color: #FFFFFF;
   font-weight: bold;
   padding: 8px 20px;
@@ -123,11 +124,11 @@ const SearchButton = styled.button`
 
   &:hover {
     background-color: #fff;
-    color: #FF4B2B;
+    color: #2e3a51;
   }
 
   &:active {
-    background-color: #FF4B2B;
+    background-color: #2e3a51;
     color: #fff;
   }
 `;

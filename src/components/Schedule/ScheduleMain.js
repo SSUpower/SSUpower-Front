@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ScheduleTable from "./ScheduleTable";
 import ScheduleForm from "./ScheduleForm";
 import initialState, { timeSlots } from "./initialState";
+import Navbar from "../Navigator/Navigator";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
@@ -26,6 +27,7 @@ function ScheduleMain() {
 
   return (
     <>
+      <Navbar />
       <ScheduleForm onSubmit={onSubmit} />
       <ScheduleTable schedule={schedule} />
     </>
