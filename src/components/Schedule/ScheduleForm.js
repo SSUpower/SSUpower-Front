@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { timeSlots, daysOfWeek } from "./initialState";
 import Modal from "./ScheduleModal";
+import axios from "axios";
 
 function ScheduleForm({ onSubmit }) {
   const [day, setDay] = useState("");
@@ -18,19 +19,39 @@ function ScheduleForm({ onSubmit }) {
       return;
     }
 
-    onSubmit({
-      day,
-      startTime,
-      endTime,
-      subject,
-      room,
-    });
+    const scheduleData = { day, startTime, endTime, subject, room };
+
+    onSubmit(scheduleData);
 
     setDay("");
     setStartTime("");
     setEndTime("");
     setSubject("");
     setRoom("");
+
+    axios
+
+      .post(
+        "https://port-0-ssupower-back-29i2dlhoohpb6.sel4.cloudtype.app/timetable/insert",
+        JSON.stringify(scheduleData),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        setDay("");
+        setStartTime("");
+        setEndTime("");
+        setSubject("");
+        setRoom("");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(scheduleData);
+      });
   };
 
   const handleClick = () => {
