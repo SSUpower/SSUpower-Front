@@ -1,109 +1,181 @@
-import React, { useState } from "react"
-import styled from "styled-components"
+import React, { useState } from "react";
+import styled from "styled-components";
+// import Navbar from "../Navigator/Navigator";
+import axios from 'axios';
 
-const LoginWrapper = styled.div`
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    flex-direction: column; 
-    width: 100%; 
-    height: 100vh;
-    `;
+const Login= () => {
+  const [Email,setEmail] = useState("");
+  const [Password,setPassword] = useState("");
 
-const LoginForm = styled.form`
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    flex-direction: column; 
-    font-weight: bold; 
-    margin-bottom: 10px;
-    `;
+  // const handleSubmit = (event) => { // 제출시 다시 로딩 방지
+  //   event.preventDefault();
+  // }
 
-const Label = styled.label` 
-    display: block; 
-    width: inputW;
-    margin: 25px auto 0; 
-    text-align: center;
-    `;
+  const test = () => {
+    console.log("login!");
+  }
 
-const Input = styled.input`
-    background-color: #eee; 
-    border: none; 
-    padding: 12px 15px; 
-    margin-bottom: 8px;
-    width: 100%;
-    border-radius: 20px;
-    `;
+  axios.get("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/")
+    .then((response) => {
+      console.log(response.Id_);
+    }) 
+    .catch((error) => {
+      console.log(error);
+    });
+    
+    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/")
+    .then((response)=> {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-const SubmitButton = styled.button`
-    border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    transform: scale(1.0);
-    outline: none;
+return(
+  // <form onSubmit={handleSubmit}>
+  //   <input 
+  //     type = "email"
+  //     value={{Email}}
+  //     onChange={(e) => setEmail(e.target.value)}
+  //     placeholder="Email"
+  //   />
+  //   <input
+  //     type = "password"
+  //     value = {password}
+  //     onChange={(e) => setPassword(e.target.value)}
+  //     placeholder="Password"
+  //   />
 
-    &:hover {
-    background-color: #FF4B2B;
-    }
-`;
+  //   <button type= "submit">Login</button>
+  // </form>
+  <>
+    {test};
+  </>
+  );
+}
+
 
 function LoginPage() {
-//이메일, 비밀번호 칸 비워두기
-const [Email, setEmail] = useState("") //eslint-disable-line no-unused-vars
-const [Password, setPassword] = useState("") //eslint-disable-line no-unused-vars
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
 
-const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value)
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value);
+  };
 
-}
+  const postTest = () => {
+    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/",{
+      email : "mingi",
+      password : "1234",
+    })
+    .then((response)=> {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
-const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value)
-}
+  const LoginHandler = () => {
+    postTest();
+  };
 
-const onSubmitHandler = (event) => {
+  const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    //사용자의 이메일, 비밀번호를 저장 
-    console.log ('Email',Email)
-    console.log ('Password',Password)
+    console.log('Email', Email);
+    console.log('Password', Password);
 
-}
-return (
+  };
+
+  return (
     <LoginWrapper>
-        <div className="login-page">
-            <LoginForm onSubmit={onSubmitHandler}>
+      {/* <Navbar /> */}
 
-                <Label inputW="200px"> Email</Label>
-                <Input type="email" value={Email} onChange={onEmailHandler} />
+      <div className="login-page">
+        <LoginForm onSubmit={onSubmitHandler}>
+          <Label inputW="200px"> Email</Label>
+          <Input type="email" value={Email} onChange={onEmailHandler} />
+          <Label inputW="200px">Password</Label>
+          <Input type="password" value={Password} onChange={onPasswordHandler} />
 
-                <Label inputW="200px">Password</Label>
-                <Input type="password" value={Password} onChange={onPasswordHandler} />
-
-            </LoginForm>
-        </div>
-    
-        <LoginForm style={{ display: 'flex', flexDirection: 'column'}} onSubmit={onSubmitHandler}>
-            <br />
-            <SubmitButton>
-                Login
-            </SubmitButton>
+          <SubmitButton onClick={LoginHandler} >Login</SubmitButton>
         </LoginForm>
 
-        <div style={{marginTop: "20px"}}>
-            아직 회원이 아니신가요? <a href="/#/Join">회원가입</a> 
+        <div style={{ marginTop: "20px" }}>
+          아직 회원이 아니신가요? <JoinLink href="/#/Join">회원가입</JoinLink>
         </div>
+      </div>
     </LoginWrapper>
-)
+  );
 }
 
-export default LoginPage
+export default LoginPage;
 
+const LoginWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+`;
+
+const LoginForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  width: inputW;
+  margin: 25px auto 0;
+  text-align: center;
+`;
+
+const Input = styled.input`
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  width: 100%;
+  border-radius: 20px;
+`;
+
+const SubmitButton = styled.button`
+  margin-top: 10px;
+  border-radius: 20px;
+  border: 1px solid #FF4B2B;
+  background-color: #FF4B2B;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  transform: scale(1.0);
+  outline: none;
+
+  &:hover {
+    background-color: #fff;
+    color: #FF4B2B;
+  }
+
+  &:active {
+    background-color: #FF4B2B;
+    color: #fff;
+  }
+`;
+
+const JoinLink= styled.a`
+    color: blue;
+`;
 
