@@ -108,8 +108,8 @@ const Cell = styled.div`
 
 const RenderButton = styled.button`
     border-radius: 20px;
-    border: 1px solid #FF4B2B;
-    background-color: #FF4B2B;
+    border: 1px solid #2e3a51;
+    background-color: #2e3a51;
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
@@ -121,12 +121,12 @@ const RenderButton = styled.button`
     outline: none;
 
     &:hover {
-    background-color: #FF4B2B;
+    background-color: #2e3a51;
     }
 `;
 
 const RenderText = styled.p`
-    color: #FF4B2B;
+    color: #2e3a51;
     font-family: 'ChosunGu';
     font-size: 14px;
     font-weight: bold;

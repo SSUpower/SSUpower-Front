@@ -111,6 +111,7 @@ const Form = styled.form`
   align-items: flex-start;
   justify-content: center;
   font-family: "ChosunGu";
+  padding-top: 50px;
   margin: 20px auto;
   width: 100%;
 `;
@@ -141,7 +142,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  background-color: #ff4b2b;
+  background-color: #2e3a51;
   color: white;
   padding: 8px 8px;
   margin-left: 8px;
