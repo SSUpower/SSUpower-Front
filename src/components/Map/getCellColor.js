@@ -32,7 +32,7 @@ const getCellColor = (char) => {
       case '4':
         return '#C0DFF0';
       case '%':
-        return '#FF4B2B';
+        return '#2e3a51';
       default:
         return '#FAFAFA';
     }
