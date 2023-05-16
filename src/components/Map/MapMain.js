@@ -6,7 +6,6 @@ import Navbar from "../Navigator/Navigator";
 import axios from 'axios';
 
 const MapMain = () => {
-
 	const [positions, setPositions] = useState([]);
 	useEffect(() => {
 		axios.get('/map/select')
