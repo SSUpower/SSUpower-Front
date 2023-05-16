@@ -19,21 +19,9 @@ function ScheduleForm({ onSubmit }) {
       return;
     }
 
-    const scheduleData = {
-      day,
-      startTime,
-      endTime,
-      subject,
-      room,
-    };
+    const scheduleData = { day, startTime, endTime, subject, room };
 
-    onSubmit({
-      day,
-      startTime,
-      endTime,
-      subject,
-      room,
-    });
+    onSubmit(scheduleData);
 
     setDay("");
     setStartTime("");
@@ -42,9 +30,18 @@ function ScheduleForm({ onSubmit }) {
     setRoom("");
 
     axios
-      .post("/timetable/insert", scheduleData)
-      .then((res) => {
-        console.log(res.data);
+
+      .post(
+        "https://port-0-ssupower-back-29i2dlhoohpb6.sel4.cloudtype.app/timetable/insert",
+        JSON.stringify(scheduleData),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
         setDay("");
         setStartTime("");
         setEndTime("");
@@ -53,6 +50,7 @@ function ScheduleForm({ onSubmit }) {
       })
       .catch((err) => {
         console.log(err);
+        console.log(scheduleData);
       });
   };
 

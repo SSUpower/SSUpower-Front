@@ -11,8 +11,27 @@ function ScheduleMain() {
     axios
       .get("/timetable/select")
       .then((response) => {
-        console.log(response.data);
-        setSchedule(response.data); // 받아온 데이터를 state에 저장
+        const receivedSchedule = response.data;
+        console.log(receivedSchedule);
+        const updatedSchedule = { ...initialState.schedule };
+
+        receivedSchedule.forEach((timetable) => {
+          const { day, startTime, endTime, subject, room } = timetable;
+
+          const startIdx = timeSlots.indexOf(startTime);
+          const endIdx = timeSlots.indexOf(endTime);
+
+          for (let i = startIdx; i < endIdx; i++) {
+            updatedSchedule[day][timeSlots[i]] = {
+              subject: subject,
+              room: room,
+              endTime: endTime,
+            };
+          }
+        });
+
+        setSchedule(updatedSchedule);
+        console.log(schedule);
       })
       .catch((error) => {
         console.log(error);
