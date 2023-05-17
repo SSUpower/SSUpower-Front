@@ -6,41 +6,6 @@ import axios from "axios";
 import Navbar from "../Navigator/Navigator";
 
 const MapMain = () => {
-  const [positions, setPositions] = useState([]);
-  useEffect(() => {
-    axios
-      .get("/timetable/select")
-      .then((response) => {
-        console.log(response.data);
-        setPositions(response.data); // 받아온 데이터를 state에 저장
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (positions.length > 0) {
-      KakaoMapScript({ positions });
-    }
-  }, [positions]);
-
-  return (
-    <Wrapper>
-      <GlobalStyle />
-      <div
-        id="myMap"
-        style={{
-          width: "100vw",
-          height: "100vh",
-        }}></div>
-    </Wrapper>
-  );
-};
-=======
-import axios from 'axios';
-
-const MapMain = () => {
 	const [positions, setPositions] = useState([]);
 	useEffect(() => {
 		axios.get('/map/select')

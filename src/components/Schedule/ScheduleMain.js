@@ -37,7 +37,7 @@ function ScheduleMain() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [schedule]);
 
   const onSubmit = ({ day, startTime, endTime, subject, room }) => {
     setSchedule((prevSchedule) => {
