@@ -30,7 +30,6 @@ function Modal({ isOpen, closeModal, num, onSubmit }) {
         <ModalBox>
           <Wrapper>
             <Button onClick={closeModal}> 창 닫기 </Button>
-            <br />
             {openContent(num)}
           </Wrapper>
         </ModalBox>
@@ -55,8 +54,8 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80vw;
-  height: 80vh;
+  width: 60vw;
+  height: 60vh;
   background-color: #fff;
   border: none;
   border-radius: 10px;

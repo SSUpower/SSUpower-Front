@@ -27,7 +27,6 @@ const ScheduleModalForm = ({onSubmit}) => {
     setRoom("");
 
     axios
-
       .post(
         "https://port-0-ssupower-back-29i2dlhoohpb6.sel4.cloudtype.app/timetable/insert",
         JSON.stringify(scheduleData),
@@ -53,70 +52,79 @@ const ScheduleModalForm = ({onSubmit}) => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<Label htmlFor="day">Day:</Label>
+
+			<FormItem>
+				<Label htmlFor="day">Day:</Label>
+				<Select
+					name="day"
+					id="day"
+					value={day}
+					onChange={(e) => setDay(e.target.value)}>
+					<option value="">요일 선택</option>
+					{daysOfWeek.map((day) => (
+						<option key={day} value={day}>
+							{day}
+						</option>
+					))}
+				</Select>
+			</FormItem>
 			
-			<Select
-				name="day"
-				id="day"
-				value={day}
-				onChange={(e) => setDay(e.target.value)}>
-				<option value="">요일 선택</option>
-				{daysOfWeek.map((day) => (
-					<option key={day} value={day}>
-						{day}
-					</option>
-				))}
-			</Select>
+			<FormItem>
+				<Label htmlFor="startTime">Start Time:</Label>
+				<Select
+					name="startTime"
+					id="startTime"
+					value={startTime}
+					onChange={(e) => setStartTime(e.target.value)}>
+					<option value="">시작 시간 선택</option>
+					{timeSlots.map((time) => (
+						<option key={time} value={time}>
+							{time}
+						</option>
+					))}
+				</Select>
+			</FormItem>
+
+			<FormItem>
+				<Label htmlFor="endTime">End Time:</Label>
+				<Select
+					name="endTime"
+					id="endTime"
+					value={endTime}
+					onChange={(e) => setEndTime(e.target.value)}>
+					<option value="">종료 시간 선택</option>
+					{timeSlots.map((time) => (
+						<option key={time} value={time}>
+							{time}
+						</option>
+					))}
+				</Select>
+			</FormItem>
 			
-			<Label htmlFor="startTime">Start Time:</Label>
+			<FormItem>
+				<Label htmlFor="subject">Subject:</Label>
+				<Input
+					type="text"
+					id="subject"
+					value={subject}
+					onChange={(e) => setSubject(e.target.value)}
+				/>
+			</FormItem>
 			
-			<Select
-				name="startTime"
-				id="startTime"
-				value={startTime}
-				onChange={(e) => setStartTime(e.target.value)}>
-				<option value="">시작 시간 선택</option>
-				{timeSlots.map((time) => (
-					<option key={time} value={time}>
-						{time}
-					</option>
-				))}
-			</Select>
+			<FormItem>
+				<Label htmlFor="room">Room:</Label>
+				
+				<Input
+					type="text"
+					id="room"
+					value={room}
+					onChange={(e) => setRoom(e.target.value)}
+				/>
+			</FormItem>
 			
-			<Label htmlFor="endTime">End Time:</Label>
-			
-			<Select
-				name="endTime"
-				id="endTime"
-				value={endTime}
-				onChange={(e) => setEndTime(e.target.value)}>
-				<option value="">종료 시간 선택</option>
-				{timeSlots.map((time) => (
-					<option key={time} value={time}>
-						{time}
-					</option>
-				))}
-			</Select>
-			
-			<Label htmlFor="subject">Subject:</Label>
-			
-			<Input
-				type="text"
-				id="subject"
-				value={subject}
-				onChange={(e) => setSubject(e.target.value)}
-			/>
-			
-			<Label htmlFor="room">Room:</Label>f
-			
-			<Input
-				type="text"
-				id="room"
-				value={room}
-				onChange={(e) => setRoom(e.target.value)}
-			/>
-			
-			<Button type="submit">추가하기</Button>
+			<FormItem>
+				<Button type="submit">추가하기</Button>
+			</FormItem>
 		
 		</Form>
 	);
@@ -126,13 +134,18 @@ export default ScheduleModalForm;
 
 const Form = styled.form`
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
+	flex-direction: column;
+  align-items: center;
+	align-content: center;
   font-family: "ChosunGu";
-  padding-top: 50px;
   margin: 20px auto;
   width: 100%;
+`;
+
+const FormItem = styled.div`
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
 `;
 
 const Label = styled.label`
