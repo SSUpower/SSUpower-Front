@@ -7,6 +7,18 @@ import Navbar from "../Navigator/Navigator";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const [isMobile, setiIsMobile] = useState(false);
+
+  useEffect(() => {
+    const resizeListener = () => {
+      setInnerWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", resizeListener);
+    if (innerWidth < 510) setiIsMobile(true);
+    else setiIsMobile(false);
+    console.log(innerWidth);
+  }, [innerWidth, isMobile]);
 
   useEffect(() => {
     axios
@@ -37,7 +49,7 @@ function ScheduleMain() {
       .catch((error) => {
         console.log(error);
       });
-  }, [schedule]);
+  }, []);
 
   const onSubmit = ({ day, startTime, endTime, subject, room }) => {
     setSchedule((prevSchedule) => {

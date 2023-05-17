@@ -1,8 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import ModalContents from "./ScheduleModalContents";
+import Contents from "./ScheduleModalContents";
+import ScheduleForm from "./ScheduleModalForm";
 
-function Modal({ isOpen, closeModal }) {
+function Modal({ isOpen, closeModal, num, onSubmit }) {
+
+  const openContent = (num) => {
+    switch (num) {
+      case 1:
+        return (
+          <ScheduleForm onSubmit={onSubmit} />
+        );
+      case 2:
+        return (
+          <p> Delete Class </p>
+        );
+      case 3:
+        return (
+          <Contents />
+        );
+      default:
+        return <p> Modal Number Error </p>;
+    }
+  }
+
   return (
     <>
       {isOpen && (
@@ -10,7 +31,7 @@ function Modal({ isOpen, closeModal }) {
           <Wrapper>
             <Button onClick={closeModal}> 창 닫기 </Button>
             <br />
-            <ModalContents />
+            {openContent(num)}
           </Wrapper>
         </ModalBox>
       )}
