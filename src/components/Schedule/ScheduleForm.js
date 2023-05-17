@@ -63,4 +63,16 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 14px;
   font-family: "ChosunGu";
+
+  color: #ffffff;
+  background-color: #2e3a51;
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: 0.5s;
+  
+  &:hover {
+    background-color: #6f7687;
+  }
 `;
