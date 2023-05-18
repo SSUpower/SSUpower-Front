@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import KakaoMapScript from "./KakaoMapScript";
 import GlobalStyle from "../../fonts/GlobalStyle";
-import axios from 'axios';
+import axios from "axios";
+import Navbar from "../Navigator/Navigator";
 
 const MapMain = () => {
-
 	const [positions, setPositions] = useState([]);
 	useEffect(() => {
 		axios.get('/map/select')
@@ -26,6 +26,7 @@ const MapMain = () => {
 
     return (
 		<Wrapper>
+			<Navbar />
 			<GlobalStyle />
 			<div id='myMap' style={{
 				width: '100vw',
@@ -38,10 +39,10 @@ const MapMain = () => {
 export default MapMain;
 
 const Wrapper = styled.div`
-	position: relative; // 추가
-	display: flex;
-	align-items: center;
-	text-align: center;
-	width: 100%;
-	height: 100vh;
+  position: relative; // 추가
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100vh;
 `;

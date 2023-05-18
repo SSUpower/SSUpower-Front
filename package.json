@@ -12,13 +12,14 @@
     "proxy": "^2.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "react-timetable-events": "^2.0.0",
     "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
-  },
-  "proxy": "https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/",
+  },\
+  "proxy": "https://port-0-ssupower-back-29i2dlhoohpb6.sel4.cloudtype.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -15,7 +15,7 @@ function ScheduleTable({ schedule }) {
               }
               return (
                 <Th key={day} style={{ textAlign: "center" }}>
-                  {day.replace("요일", "")}
+                  {day}
                 </Th>
               );
             })}
@@ -87,7 +87,7 @@ export default ScheduleTable;
 const Table = styled.table`
   border-collapse: collapse;
   margin: 0 auto;
-  font-size: 16px;
+  font-size: 15px;
 `;
 
 const Thead = styled.thead`

@@ -1,10 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ScheduleTable from "./ScheduleTable";
 import ScheduleForm from "./ScheduleForm";
 import initialState, { timeSlots } from "./initialState";
+import axios from "axios";
+import Navbar from "../Navigator/Navigator";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
+
+  useEffect(() => {
+    axios
+      .get("/timetable/select")
+      .then((response) => {
+        const receivedSchedule = response.data;
+        console.log(receivedSchedule);
+        const updatedSchedule = { ...initialState.schedule };
+
+        receivedSchedule.forEach((timetable) => {
+          const { day, startTime, endTime, subject, room } = timetable;
+
+          const startIdx = timeSlots.indexOf(startTime);
+          const endIdx = timeSlots.indexOf(endTime);
+
+          for (let i = startIdx; i < endIdx; i++) {
+            updatedSchedule[day][timeSlots[i]] = {
+              subject: subject,
+              room: room,
+              endTime: endTime,
+            };
+          }
+        });
+
+        setSchedule(updatedSchedule);
+        console.log(schedule);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [schedule]);
 
   const onSubmit = ({ day, startTime, endTime, subject, room }) => {
     setSchedule((prevSchedule) => {
@@ -26,6 +59,7 @@ function ScheduleMain() {
 
   return (
     <>
+      <Navbar />
       <ScheduleForm onSubmit={onSubmit} />
       <ScheduleTable schedule={schedule} />
     </>

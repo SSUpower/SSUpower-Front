@@ -1,35 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import Navbar from "../Navigator/Navigator";
 import axios from 'axios';
-
-const Login= () => { 
-  const test = () => {
-    console.log("login!");
-  }
-
-  axios.get("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/")
-    .then((response) => {
-      console.log(response.Id_);
-    }) 
-    .catch((error) => {
-      console.log(error);
-    });
-    
-    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/")
-    .then((response)=> {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-return(
-  <>
-    {test};
-  </>
-  );
-}
-
 
 function LoginPage() {
   const [Email, setEmail] = useState("");
@@ -60,7 +32,6 @@ function LoginPage() {
     });
   }
 
-
   const LoginHandler = () => {
     postTest();
   };
@@ -81,7 +52,7 @@ function LoginPage() {
 
   return (
     <LoginWrapper>
-      {/* <Navbar /> */}
+      <Navbar />
 
       <div className="login-page">
         <LoginForm onSubmit={onSubmitHandler}>
@@ -93,9 +64,6 @@ function LoginPage() {
           <SubmitButton onClick={LoginHandler} >Login</SubmitButton>
         </LoginForm>
 
-        {showPasswordError && <ErrorMessage>Please enter a password</ErrorMessage>}
-        {showEmailError && <ErrorMessage> Please enter Email </ErrorMessage>}
-
         <div style={{ marginTop: "20px" }}>
           아직 회원이 아니신가요? <JoinLink href="/#/Join">회원가입</JoinLink>
         </div>
@@ -105,11 +73,6 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
-const ErrorMessage = styled.div`
-  color: red;
-  margin-top: 10px;
-`;
 
 const LoginWrapper = styled.div`
   display: flex;
@@ -148,8 +111,8 @@ const Input = styled.input`
 const SubmitButton = styled.button`
   margin-top: 10px;
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
+  border: 1px solid #2e3a51;
+  background-color: #2e3a51;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
@@ -162,11 +125,11 @@ const SubmitButton = styled.button`
 
   &:hover {
     background-color: #fff;
-    color: #FF4B2B;
+    color: #2e3a51;
   }
 
   &:active {
-    background-color: #FF4B2B;
+    background-color: #2e3a51;
     color: #fff;
   }
 `;
@@ -174,4 +137,3 @@ const SubmitButton = styled.button`
 const JoinLink= styled.a`
     color: blue;
 `;
-
