@@ -4,16 +4,16 @@ import styled from "styled-components";
 import axios from 'axios';
 
 const Login= () => {
-  const [Email,setEmail] = useState("");
-  const [Password,setPassword] = useState("");
+  // const [Email,setEmail] = useState("");
+  // const [Password,setPassword] = useState("");
 
   // const handleSubmit = (event) => { // 제출시 다시 로딩 방지
   //   event.preventDefault();
   // }
 
-  const test = () => {
-    console.log("login!");
-  }
+  // const test = () => {
+  //   console.log("login!");
+  // }
 
   axios.get("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/")
     .then((response) => {
@@ -58,18 +58,23 @@ return(
 function LoginPage() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const [showPasswordError, setShowPasswordError] = useState(false);
+  const [showEmailError, setShowEmailError] = useState(false);
+
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
+    setShowEmailError(false);
   };
 
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
+    setShowPasswordError(false);
   };
 
   const postTest = () => {
     axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/",{
-      email : "mingi",
-      password : "1234",
+      email : Email, //아이디 없으면 null
+      password : Password, //비밀번호가 빈칸이면 = 0
     })
     .then((response)=> {
       console.log(response);
@@ -79,6 +84,7 @@ function LoginPage() {
     });
   }
 
+
   const LoginHandler = () => {
     postTest();
   };
@@ -86,8 +92,14 @@ function LoginPage() {
   const onSubmitHandler = (event) => {
     event.preventDefault();
 
-    console.log('Email', Email);
-    console.log('Password', Password);
+    if (Password === "") {
+      setShowPasswordError(true);
+      return;
+    }
+    
+    if(Email === ""){
+      setShowEmailError(true);
+    }
 
   };
 
@@ -105,6 +117,9 @@ function LoginPage() {
           <SubmitButton onClick={LoginHandler} >Login</SubmitButton>
         </LoginForm>
 
+        {showPasswordError && <ErrorMessage>Please enter a password</ErrorMessage>}
+        {showEmailError && <ErrorMessage> Please enter Email </ErrorMessage>}
+
         <div style={{ marginTop: "20px" }}>
           아직 회원이 아니신가요? <JoinLink href="/#/Join">회원가입</JoinLink>
         </div>
@@ -114,6 +129,11 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+const ErrorMessage = styled.div`
+  color: red;
+  margin-top: 10px;
+`;
 
 const LoginWrapper = styled.div`
   display: flex;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/macro';
+import axios from 'axios';
 
 const JoinContainer = styled.div`
   display: flex;
@@ -67,12 +68,38 @@ const LoginLink = styled.a`
 
 `;
 
+const Joinconnect= () => {
+  // const [Name, setName] = useState("");
+  // const [Email, setEmail] = useState("");
+  // const [Password, setPassword] = useState("");
+  // const [ConfirmPassword, setConfirmPassword] = useState("");
+  // const [School, setSchool] = useState("");
+
+  // const test = () => { 
+  //   console.log("Join!");
+  // }
+
+    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/join")
+    .then((response)=> {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  return(
+    <>
+      {test};
+    </>
+  );
+}
 function Join(props) {
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [School, setSchool] = useState("");
+
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
@@ -104,7 +131,31 @@ function Join(props) {
     if(School !== "숭실대학교"){
       return alert('숭실대학교 학생만 가능합니다')
     }
+
+    // postTest();
   };
+
+  const postTest = () => {
+    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/join",{
+      name: Name,
+      email : Email,
+      password : Password,
+      ConfirmPassword: ConfirmPassword,
+      School: School,
+    })
+    .then((response)=> {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const JoinHandler = () => {
+    postTest();
+  };
+
+
 
   return (
     <JoinContainer>
@@ -124,7 +175,7 @@ function Join(props) {
         <Label>School</Label>
         <Input type='school' value={School} onChange={onSchoolHandler} />
 
-        <SubmitButton>
+        <SubmitButton onClick={JoinHandler}>
           Join
         </SubmitButton>
 
