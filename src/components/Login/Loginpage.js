@@ -6,25 +6,23 @@ import axios from 'axios';
 function LoginPage() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
+  const [showPasswordError, setShowPasswordError] = useState(false);
+  const [showEmailError, setShowEmailError] = useState(false);
+
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
+    setShowEmailError(false);
   };
 
   const onPasswordHandler = (event) => {
     setPassword(event.currentTarget.value);
-  };
-
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-
-    console.log('Email', Email);
-    console.log('Password', Password);
+    setShowPasswordError(false);
   };
 
   const postTest = () => {
     axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/",{
-      email : "mingi@naver.com",
-      password : "1234",
+      email : Email, //아이디 없으면 null
+      password : Password, //비밀번호가 빈칸이면 = 0
     })
     .then((response)=> {
       console.log(response);
@@ -36,6 +34,20 @@ function LoginPage() {
 
   const LoginHandler = () => {
     postTest();
+  };
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+
+    if (Password === "") {
+      setShowPasswordError(true);
+      return;
+    }
+    
+    if(Email === ""){
+      setShowEmailError(true);
+    }
+
   };
 
   return (
@@ -125,4 +137,3 @@ const SubmitButton = styled.button`
 const JoinLink= styled.a`
     color: blue;
 `;
-
