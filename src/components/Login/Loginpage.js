@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import Navbar from "../Navigator/Navigator";
 import axios from 'axios';
 
-const Login= () => {
-  // const [Email,setEmail] = useState("");
-  // const [Password,setPassword] = useState("");
-
-  // const handleSubmit = (event) => { // 제출시 다시 로딩 방지
-  //   event.preventDefault();
-  // }
-
-  // const test = () => {
-  //   console.log("login!");
-  // }
+const Login= () => { 
+  const test = () => {
+    console.log("login!");
+  }
 
   axios.get("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/")
     .then((response) => {
@@ -32,22 +24,6 @@ const Login= () => {
     });
 
 return(
-  // <form onSubmit={handleSubmit}>
-  //   <input 
-  //     type = "email"
-  //     value={{Email}}
-  //     onChange={(e) => setEmail(e.target.value)}
-  //     placeholder="Email"
-  //   />
-  //   <input
-  //     type = "password"
-  //     value = {password}
-  //     onChange={(e) => setPassword(e.target.value)}
-  //     placeholder="Password"
-  //   />
-
-  //   <button type= "submit">Login</button>
-  // </form>
   <>
     {test};
   </>

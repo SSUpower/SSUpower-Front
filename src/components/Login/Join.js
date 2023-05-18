@@ -69,15 +69,10 @@ const LoginLink = styled.a`
 `;
 
 const Joinconnect= () => {
-  // const [Name, setName] = useState("");
-  // const [Email, setEmail] = useState("");
-  // const [Password, setPassword] = useState("");
-  // const [ConfirmPassword, setConfirmPassword] = useState("");
-  // const [School, setSchool] = useState("");
-
-  // const test = () => { 
-  //   console.log("Join!");
-  // }
+ 
+  const test = () => { 
+    console.log("Join!");
+  }
 
     axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/join")
     .then((response)=> {
@@ -87,7 +82,7 @@ const Joinconnect= () => {
       console.log(error);
     });
 
-  return(
+  return( 
     <>
       {test};
     </>
