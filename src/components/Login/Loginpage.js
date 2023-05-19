@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../Navigator/Navigator";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { userState } from "../state";
 
 function LoginPage() {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [showPasswordError, setShowPasswordError] = useState(false);
   const [showEmailError, setShowEmailError] = useState(false);
+  const [noUser, setNoUser] = useState(null);
+  const [wrongPass, setWrongPass] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
+  const navigate = useNavigate();
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);
@@ -19,13 +26,27 @@ function LoginPage() {
     setShowPasswordError(false);
   };
 
-  const postTest = () => {
+  const login = () => {
     axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/",{
-      email : Email, //아이디 없으면 null
-      password : Password, //비밀번호가 빈칸이면 = 0
+      email : Email,
+      password : Password,
     })
     .then((response)=> {
       console.log(response);
+      if (response.data.id && response.data.email === null){
+        console.log("pass error");
+        setWrongPass(true);
+        setNoUser(false);
+      }
+      else if (response.data.id){
+        setUser(response.data);
+        navigate('/');
+      }
+      else{
+        console.log("no user");
+        setNoUser(true);
+        setWrongPass(false);
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -33,7 +54,7 @@ function LoginPage() {
   }
 
   const LoginHandler = () => {
-    postTest();
+    login();
   };
 
   const onSubmitHandler = (event) => {
@@ -53,7 +74,6 @@ function LoginPage() {
   return (
     <LoginWrapper>
       <Navbar />
-
       <div className="login-page">
         <LoginForm onSubmit={onSubmitHandler}>
           <Label inputW="200px"> Email</Label>
@@ -61,12 +81,17 @@ function LoginPage() {
           <Label inputW="200px">Password</Label>
           <Input type="password" value={Password} onChange={onPasswordHandler} />
 
-          <SubmitButton onClick={LoginHandler} >Login</SubmitButton>
+          <SubmitButton onClick={LoginHandler} > Login </SubmitButton>
+
         </LoginForm>
 
-        <div style={{ marginTop: "20px" }}>
-          아직 회원이 아니신가요? <JoinLink href="/#/Join">회원가입</JoinLink>
-        </div>
+        { noUser && 
+          (<ErrorText > 아직 회원이 아니신가요? 
+            <JoinLink href="/#/Join">회원가입</JoinLink>
+            </ErrorText> 
+        )}
+        { wrongPass && (<ErrorText style={{color: '#D1180B'}} > 비밀번호가 틀렸습니다. </ErrorText>)}
+        
       </div>
     </LoginWrapper>
   );
@@ -95,7 +120,7 @@ const LoginForm = styled.form`
 const Label = styled.label`
   display: block;
   width: inputW;
-  margin: 25px auto 0;
+  margin-top: 25px;
   text-align: center;
 `;
 
@@ -104,7 +129,7 @@ const Input = styled.input`
   border: none;
   padding: 12px 15px;
   margin-bottom: 8px;
-  width: 100%;
+  width: 200px;
   border-radius: 20px;
 `;
 
@@ -116,6 +141,7 @@ const SubmitButton = styled.button`
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
+  margin-top: 25px;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -136,4 +162,10 @@ const SubmitButton = styled.button`
 
 const JoinLink= styled.a`
     color: blue;
+`;
+
+const ErrorText= styled.div`
+  width: 300px;
+  margin-top: 20px;
+  text-align: center;
 `;

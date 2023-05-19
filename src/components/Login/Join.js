@@ -33,7 +33,7 @@ const Input = styled.input`
   border: none;
   margin-bottom: 8px;
   padding: 12px 15px;
-  width: 100%;
+  width: 200px;
   text-transform: scale(1.0);
   border-radius: 20px;
 `;
@@ -69,33 +69,12 @@ const LoginLink = styled.a`
 
 `;
 
-const Joinconnect= () => {
- 
-  const test = () => { 
-    console.log("Join!");
-  }
-
-    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/join")
-    .then((response)=> {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-  return( 
-    <>
-      {test};
-    </>
-  );
-}
 function Join(props) {
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [School, setSchool] = useState("");
-
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
@@ -150,8 +129,6 @@ function Join(props) {
   const JoinHandler = () => {
     postTest();
   };
-
-
 
   return (
     <JoinContainer>
