@@ -111,7 +111,7 @@ function Join(props) {
   };
 
   const postTest = () => {
-    axios.post("https://port-0-red-test-29i2dlhpm04qm.sel4.cloudtype.app/join",{
+    axios.post("https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/join",{
       name: Name,
       email : Email,
       password : Password,
