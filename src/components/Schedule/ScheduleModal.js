@@ -1,16 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import ModalContents from "./ScheduleModalContents";
+import Contents from "./ScheduleModalContents";
+import ScheduleForm from "./ScheduleModalForm";
 
-function Modal({ isOpen, closeModal }) {
+function Modal({ isOpen, closeModal, num, onSubmit }) {
+
+  const openContent = (num) => {
+    switch (num) {
+      case 1:
+        return (
+          <ScheduleForm onSubmit={onSubmit} />
+        );
+      case 2:
+        return (
+          <p> Delete Class </p>
+        );
+      case 3:
+        return (
+          <Contents />
+        );
+      default:
+        return <p> Modal Number Error </p>;
+    }
+  }
+
   return (
     <>
       {isOpen && (
         <ModalBox>
           <Wrapper>
             <Button onClick={closeModal}> 창 닫기 </Button>
-            <br />
-            <ModalContents />
+            {openContent(num)}
           </Wrapper>
         </ModalBox>
       )}
@@ -34,8 +54,8 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80vw;
-  height: 80vh;
+  width: 60vw;
+  height: 60vh;
   background-color: #fff;
   border: none;
   border-radius: 10px;

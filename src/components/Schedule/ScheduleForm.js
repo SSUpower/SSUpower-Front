@@ -1,132 +1,48 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { timeSlots, daysOfWeek } from "./initialState";
 import Modal from "./ScheduleModal";
-import axios from "axios";
 
 function ScheduleForm({ onSubmit }) {
-  const [day, setDay] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [subject, setSubject] = useState("");
-  const [room, setRoom] = useState("");
+  const [modalOpen1, setModalOpen1] = useState(false);
+  const [modalOpen2, setModalOpen2] = useState(false);
+  const [modalOpen3, setModalOpen3] = useState(false);
 
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!day || !startTime || !endTime) {
-      return;
-    }
-
-    const scheduleData = { day, startTime, endTime, subject, room };
-
-    onSubmit(scheduleData);
-
-    setDay("");
-    setStartTime("");
-    setEndTime("");
-    setSubject("");
-    setRoom("");
-
-    axios
-
-      .post(
-        "https://port-0-ssupower-back-29i2dlhoohpb6.sel4.cloudtype.app/timetable/insert",
-        JSON.stringify(scheduleData),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        setDay("");
-        setStartTime("");
-        setEndTime("");
-        setSubject("");
-        setRoom("");
-      })
-      .catch((err) => {
-        console.log(err);
-        console.log(scheduleData);
-      });
+  const handleClick1 = () => {
+    setModalOpen1(true);
   };
 
-  const handleClick = () => {
-    setModalOpen(true);
+  const handleClick2 = () => {
+    setModalOpen2(true);
+  };
+
+  const handleClick3 = () => {
+    setModalOpen3(true);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Label htmlFor="day">Day:</Label>
-      <Select
-        name="day"
-        id="day"
-        value={day}
-        onChange={(e) => setDay(e.target.value)}>
-        <option value="">요일 선택</option>
-        {daysOfWeek.map((day) => (
-          <option key={day} value={day}>
-            {day}
-          </option>
-        ))}
-      </Select>
-      <Label htmlFor="startTime">Start Time:</Label>
-      <Select
-        name="startTime"
-        id="startTime"
-        value={startTime}
-        onChange={(e) => setStartTime(e.target.value)}>
-        <option value="">시작 시간 선택</option>
-        {timeSlots.map((time) => (
-          <option key={time} value={time}>
-            {time}
-          </option>
-        ))}
-      </Select>
-      <Label htmlFor="endTime">End Time:</Label>
-      <Select
-        name="endTime"
-        id="endTime"
-        value={endTime}
-        onChange={(e) => setEndTime(e.target.value)}>
-        <option value="">종료 시간 선택</option>
-        {timeSlots.map((time) => (
-          <option key={time} value={time}>
-            {time}
-          </option>
-        ))}
-      </Select>
-      <Label htmlFor="subject">Subject:</Label>
-      <Input
-        type="text"
-        id="subject"
-        value={subject}
-        onChange={(e) => setSubject(e.target.value)}
-      />
-      <Label htmlFor="room">Room:</Label>
-      <Input
-        type="text"
-        id="room"
-        value={room}
-        onChange={(e) => setRoom(e.target.value)}
-      />
-      <Button type="submit">추가하기</Button>
-      <div>
-        <Button onClick={handleClick}>빈 강의실 추천 받기</Button>
-        {modalOpen && (
-          <Modal isOpen={modalOpen} closeModal={() => setModalOpen(false)} />
-        )}
-      </div>
-    </Form>
+    <Wrapper>
+      <Button onClick={handleClick1}>수업 추가하기</Button>
+      <Button onClick={handleClick2}>수업 삭제하기</Button>
+      <Button onClick={handleClick3}>빈 강의실 추천 받기</Button>
+
+      {modalOpen1 && (
+        <Modal isOpen={modalOpen1} closeModal={() => setModalOpen1(false)} num={1} onSubmit={onSubmit} />
+      )}
+
+      {modalOpen2 && (
+        <Modal isOpen={modalOpen2} closeModal={() => setModalOpen2(false)} num={2} onSubmit={onSubmit} />
+      )}
+
+      {modalOpen3 && (
+        <Modal isOpen={modalOpen3} closeModal={() => setModalOpen3(false)} num={3} onSubmit={onSubmit} />
+      )}
+    </Wrapper>
   );
 }
 
 export default ScheduleForm;
 
-const Form = styled.form`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -135,31 +51,6 @@ const Form = styled.form`
   padding-top: 50px;
   margin: 20px auto;
   width: 100%;
-`;
-
-const Label = styled.label`
-  margin-top: 10px;
-  font-size: 14px;
-`;
-
-const Select = styled.select`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 8px;
-  margin-bottom: 4px;
-  font-size: 14px;
-  font-family: "ChosunGu";
-`;
-
-const Input = styled.input`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  width: 100px;
-  font-family: "ChosunGu";
 `;
 
 const Button = styled.button`
@@ -172,4 +63,16 @@ const Button = styled.button`
   cursor: pointer;
   font-size: 14px;
   font-family: "ChosunGu";
+
+  color: #ffffff;
+  background-color: #2e3a51;
+
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: 0.5s;
+  
+  &:hover {
+    background-color: #6f7687;
+  }
 `;

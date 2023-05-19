@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useEffect, useState }  from "react";
 import styled from "styled-components";
 import { daysOfWeek, timeSlots } from "./initialState";
 
-function ScheduleTable({ schedule }) {
+function ScheduleTable({ schedule}) {
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const [tdSize, setTdSize] = useState(200);
+
+  useEffect(() => {
+    const resizeListener = () => {
+      setInnerWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", resizeListener);
+    if (innerWidth < 400) setTdSize(50);
+    else if (innerWidth < 800) setTdSize(70);
+    else if (innerWidth < 1100) setTdSize(100);
+    else setTdSize(200);
+  }, [innerWidth]);
+
+  const Td = styled.td`
+  text-align: center;
+  border: 1px solid #ddd;
+  width: ${tdSize}px;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
+  height: 30px;
+  ${(props) => props.isEvenRow && "border-top: white"}
+  ${(props) => !props.isEvenRow && "border-bottom: none"}
+`;
+
   return (
     <>
       <Table>
@@ -104,14 +130,3 @@ const Th = styled.th`
   ${(props) => !props.isEvenRow && "border-bottom: none"}
 `;
 
-const Td = styled.td`
-  text-align: center;
-  border: 1px solid #ddd;
-  width: 200px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  height: 30px;
-  ${(props) => props.isEvenRow && "border-top: white"}
-  ${(props) => !props.isEvenRow && "border-bottom: none"}
-`;
