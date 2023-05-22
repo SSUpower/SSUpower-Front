@@ -4,14 +4,20 @@ import ScheduleForm from "./ScheduleForm";
 import initialState, { timeSlots } from "./initialState";
 import axios from "axios";
 import Navbar from "../Navigator/Navigator";
+import { useRecoilState } from 'recoil';
+import { isUserState, isLoggedInState } from "../state";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
+  const [user,setUser] = useRecoilState(isUserState);
+  const [loginState, setLoginState] = useRecoilState(isLoggedInState);
 
   useEffect(() => {
     axios
       .get("/timetable/select")
       .then((response) => {
+        console.log('user: ',user);
+        console.log('loginState: ', loginState);
         const receivedSchedule = response.data;
         console.log(receivedSchedule);
         const updatedSchedule = { ...initialState.schedule };

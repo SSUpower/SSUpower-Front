@@ -6,15 +6,22 @@ export const LoginState = atom({
     default: false,
 });
 
-export const userState = atom({
-    key: 'userState',
-    default: null,
-  });
-  
 export const isLoggedInState = selector({
     key: 'isLoggedInState',
     get: ({ get }) => {
-        const user = get(userState);
-        return user !== null;
+        return get(LoginState);
+    },
+});
+
+export const userState = atom({
+    key: 'userState',
+    default: [],
+  });
+  
+
+export const isUserState = selector({
+    key: 'isUserState',
+    get: ({ get }) => {
+        return get(userState);
     },
 });

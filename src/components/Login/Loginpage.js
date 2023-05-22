@@ -4,7 +4,7 @@ import Navbar from "../Navigator/Navigator";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { userState } from "../state";
+import { LoginState, userState } from "../state";
 
 function LoginPage() {
   const [Email, setEmail] = useState("");
@@ -14,6 +14,7 @@ function LoginPage() {
   const [noUser, setNoUser] = useState(null);
   const [wrongPass, setWrongPass] = useState(false);
   const [user, setUser] = useRecoilState(userState);
+  const [loginState, setLoginState] = useRecoilState(LoginState);
   const navigate = useNavigate();
 
   const onEmailHandler = (event) => {
@@ -40,6 +41,7 @@ function LoginPage() {
       }
       else if (response.data.id){
         setUser(response.data);
+        setLoginState(true);
         navigate('/');
       }
       else{
