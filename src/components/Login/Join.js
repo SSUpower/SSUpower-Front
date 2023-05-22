@@ -116,7 +116,7 @@ function Join(props) {
       email : Email,
       password : Password,
       ConfirmPassword: ConfirmPassword,
-      School: School,
+      school: School,
     })
     .then((response)=> {
       console.log(response);
