@@ -28,7 +28,7 @@ const ScheduleModalForm = ({onSubmit}) => {
 
     axios
       .post(
-        "https://port-0-ssupower-back-29i2dlhoohpb6.sel4.cloudtype.app/timetable/insert",
+        "https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/timetable/insert",
         JSON.stringify(scheduleData),
         {
           headers: {
