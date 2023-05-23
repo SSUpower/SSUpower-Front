@@ -2,6 +2,106 @@ import React, { useState } from 'react';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import Navbar from "../Navigator/Navigator";
+import { useNavigate } from 'react-router-dom';
+
+function Join() {
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [ConfirmPassword, setConfirmPassword] = useState("");
+  const [School, setSchool] = useState("");
+  const navigate = useNavigate();
+
+  const onNameHandler = (event) => {
+    setName(event.currentTarget.value);
+  };
+
+  const onEmailHandler = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+
+  const onPasswordHandler = (event) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onConfirmPasswordHandler = (event) => {
+    setConfirmPassword(event.currentTarget.value);
+  };
+
+  const onSchoolHandler = (event) => {
+    setSchool(event.currentTarget.value);
+  };
+
+  const errorHandler = () => {
+    if (Password !== ConfirmPassword) {
+      alert('비밀번호가 같지 않습니다.');
+      return false;
+    }
+
+    if(School !== "숭실대학교"){
+      alert('숭실대학교 학생만 가능합니다');
+      return false;
+    }
+
+    return true;
+  };
+
+  const postTest = () => {
+    axios.post("https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/join",{
+      name: Name,
+      email : Email,
+      password : Password,
+      ConfirmPassword: ConfirmPassword,
+      school: School,
+    })
+    .then((response)=> {
+      console.log(response);
+      navigate('/login');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const JoinHandler = () => {
+    if (errorHandler())
+      postTest();
+  };
+
+  return (
+    <JoinContainer>
+      <Navbar />
+      <JoinForm>
+        <Label>Name</Label>
+        <Input type='text' value={Name} onChange={onNameHandler} />
+
+        <Label>Email</Label>
+        <Input type='email' value={Email} onChange={onEmailHandler} />
+
+        <Label>Password</Label>
+        <Input type='password' value={Password} onChange={onPasswordHandler} />
+
+        <Label>Confirm Password</Label>
+        <Input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
+
+        <Label>School</Label>
+        <Input type='school' value={School} onChange={onSchoolHandler} />
+
+        <SubmitButton onClick={JoinHandler}>
+          Join
+        </SubmitButton>
+
+        <LoginLinkContainer>
+            <LoginLinkSpan>이미 계정이 있으신가요? </LoginLinkSpan>
+            <LoginLink href="/#/Login">로그인하기</LoginLink>
+        </LoginLinkContainer>
+      </JoinForm>
+
+    </JoinContainer>
+  )
+}
+
+export default Join;
 
 const JoinContainer = styled.div`
   display: flex;
@@ -68,99 +168,3 @@ const LoginLink = styled.a`
   font-weight: normal;
 
 `;
-
-function Join(props) {
-  const [Name, setName] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
-  const [ConfirmPassword, setConfirmPassword] = useState("");
-  const [School, setSchool] = useState("");
-
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
-  };
-
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const onConfirmPasswordHandler = (event) => {
-    setConfirmPassword(event.currentTarget.value);
-  };
-
-  const onSchoolHandler = (event) => {
-    setSchool(event.currentTarget.value);
-  };
-
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-
-    if (Password !== ConfirmPassword) {
-      return alert('비밀번호가 같지 않습니다.')
-    }
-
-    if(School !== "숭실대학교"){
-      return alert('숭실대학교 학생만 가능합니다')
-    }
-
-    // postTest();
-  };
-
-  const postTest = () => {
-    axios.post("https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/join",{
-      name: Name,
-      email : Email,
-      password : Password,
-      ConfirmPassword: ConfirmPassword,
-      school: School,
-    })
-    .then((response)=> {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
-
-  const JoinHandler = () => {
-    postTest();
-  };
-
-  return (
-    <JoinContainer>
-      <Navbar></Navbar>
-      <JoinForm onSubmit={onSubmitHandler}>
-        <Label>Name</Label>
-        <Input type='text' value={Name} onChange={onNameHandler} />
-
-        <Label>Email</Label>
-        <Input type='email' value={Email} onChange={onEmailHandler} />
-
-        <Label>Password</Label>
-        <Input type='password' value={Password} onChange={onPasswordHandler} />
-
-        <Label>Confirm Password</Label>
-        <Input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
-
-        <Label>School</Label>
-        <Input type='school' value={School} onChange={onSchoolHandler} />
-
-        <SubmitButton onClick={JoinHandler}>
-          Join
-        </SubmitButton>
-
-        <LoginLinkContainer>
-            <LoginLinkSpan>이미 계정이 있으신가요? </LoginLinkSpan>
-            <LoginLink href="/#/Login">로그인하기</LoginLink>
-        </LoginLinkContainer>
-      </JoinForm>
-
-    </JoinContainer>
-  )
-}
-
-export default Join;
