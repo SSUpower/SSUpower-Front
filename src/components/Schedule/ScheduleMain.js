@@ -15,40 +15,38 @@ function ScheduleMain() {
   const userId = user.id;
 
   useEffect(() => {
-    if (loginState) {
-      axios
-        .post(`/timetable/${userId}/select`)
-        .then((response) => {
-          const receivedSchedule = response.data;
-          const updatedSchedule = { ...initialState.schedule };
+    axios
+      .post(`/timetable/${userId}/select`)
+      .then((response) => {
+        const receivedSchedule = response.data;
+        const updatedSchedule = { ...initialState.schedule };
 
-          receivedSchedule.forEach((timetable) => {
-            const { day, startTime, endTime, subject, room } = timetable;
+        receivedSchedule.forEach((timetable) => {
+          const { day, startTime, endTime, subject, room } = timetable;
 
-            const startIdx = timeSlots.indexOf(startTime);
-            const endIdx = timeSlots.indexOf(endTime);
+          const startIdx = timeSlots.indexOf(startTime);
+          const endIdx = timeSlots.indexOf(endTime);
 
-            for (let i = startIdx; i < endIdx; i++) {
-              updatedSchedule[day][timeSlots[i]] = {
-                subject: subject,
-                room: room,
-                endTime: endTime,
-              };
-            }
-          });
-
-          const schedules = receivedSchedule.map((timetable) => [
-            timetable.subject + "  (" + timetable.day + ")",
-          ]);
-
-          setSchedule(updatedSchedule);
-          setScheduleList(schedules);
-        })
-        .catch((error) => {
-          console.log(error);
+          for (let i = startIdx; i < endIdx; i++) {
+            updatedSchedule[day][timeSlots[i]] = {
+              subject: subject,
+              room: room,
+              endTime: endTime,
+            };
+          }
         });
-    }
-  }, [loginState, user]);
+
+        const schedules = receivedSchedule.map((timetable) => [
+          timetable.subject + "  (" + timetable.day + ")",
+        ]);
+
+        setSchedule(updatedSchedule);
+        setScheduleList(schedules);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [user]);
 
   const onSubmit = ({ day, startTime, endTime, subject, room, userId }) => {
     setSchedule((prevSchedule) => {
