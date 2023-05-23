@@ -67,7 +67,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
   padding-top: 50px;
   margin: 20px auto;
   width: 100%;
@@ -82,7 +82,7 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
 
   color: #ffffff;
   background-color: #2e3a51;

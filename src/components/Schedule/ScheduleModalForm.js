@@ -53,11 +53,11 @@ const ScheduleModalForm = ({ onSubmit, userId }) => {
           id="day"
           value={day}
           onChange={(e) => setDay(e.target.value)}>
-          <option value="">요일 선택</option>
+          <Option value="">요일 선택</Option>
           {daysOfWeek.map((day) => (
-            <option key={day} value={day}>
+            <Option key={day} value={day}>
               {day}
-            </option>
+            </Option>
           ))}
         </Select>
       </FormItem>
@@ -69,11 +69,11 @@ const ScheduleModalForm = ({ onSubmit, userId }) => {
           id="startTime"
           value={startTime}
           onChange={(e) => setStartTime(e.target.value)}>
-          <option value="">시작 시간 선택</option>
+          <Option value="">시작 시간 선택</Option>
           {timeSlots.map((time) => (
-            <option key={time} value={time}>
+            <Option key={time} value={time}>
               {time}
-            </option>
+            </Option>
           ))}
         </Select>
       </FormItem>
@@ -85,11 +85,11 @@ const ScheduleModalForm = ({ onSubmit, userId }) => {
           id="endTime"
           value={endTime}
           onChange={(e) => setEndTime(e.target.value)}>
-          <option value="">종료 시간 선택</option>
+          <Option value="">종료 시간 선택</Option>
           {timeSlots.map((time) => (
-            <option key={time} value={time}>
+            <Option key={time} value={time}>
               {time}
-            </option>
+            </Option>
           ))}
         </Select>
       </FormItem>
@@ -129,7 +129,7 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   align-content: center;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
   margin: 20px auto;
   width: 100%;
 `;
@@ -152,7 +152,7 @@ const Select = styled.select`
   margin-right: 8px;
   margin-bottom: 4px;
   font-size: 14px;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
 `;
 
 const Input = styled.input`
@@ -162,7 +162,7 @@ const Input = styled.input`
   margin-right: 8px;
   margin-bottom: 8px;
   width: 100px;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
 `;
 
 const Button = styled.button`
@@ -174,5 +174,9 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
+`;
+
+const Option = styled.option`
+  font-family: "LINESeedKR-Rg";
 `;

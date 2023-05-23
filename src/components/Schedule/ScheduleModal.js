@@ -82,7 +82,7 @@ const Button = styled.button`
   border-radius: 4px;
   flex: 0 1 0;
 
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: "LINESeedKR-Rg";
   font-size: 1rem;
   font-weight: 400;
   text-align: center;
