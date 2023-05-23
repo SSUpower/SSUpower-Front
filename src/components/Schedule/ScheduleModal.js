@@ -2,27 +2,35 @@ import React from "react";
 import styled from "styled-components";
 import Contents from "./ScheduleModalContents";
 import ScheduleForm from "./ScheduleModalForm";
+import ScheduleDelete from "./ScheduleModalDelete";
 
-function Modal({ isOpen, closeModal, num, onSubmit }) {
-
+function Modal({
+  isOpen,
+  closeModal,
+  num,
+  onSubmit,
+  scheduleList,
+  onDelete,
+  userId,
+}) {
   const openContent = (num) => {
     switch (num) {
       case 1:
-        return (
-          <ScheduleForm onSubmit={onSubmit} />
-        );
+        return <ScheduleForm onSubmit={onSubmit} userId={userId} />;
       case 2:
         return (
-          <p> Delete Class </p>
+          <ScheduleDelete
+            scheduleList={scheduleList}
+            onDelete={onDelete}
+            userId={userId}
+          />
         );
       case 3:
-        return (
-          <Contents />
-        );
+        return <Contents />;
       default:
         return <p> Modal Number Error </p>;
     }
-  }
+  };
 
   return (
     <>

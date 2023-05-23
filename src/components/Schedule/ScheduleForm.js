@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./ScheduleModal";
 
-function ScheduleForm({ onSubmit }) {
+function ScheduleForm({ onSubmit, scheduleList, handleDelete, userId }) {
+  console.log(userId);
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
   const [modalOpen3, setModalOpen3] = useState(false);
@@ -26,15 +27,34 @@ function ScheduleForm({ onSubmit }) {
       <Button onClick={handleClick3}>빈 강의실 추천 받기</Button>
 
       {modalOpen1 && (
-        <Modal isOpen={modalOpen1} closeModal={() => setModalOpen1(false)} num={1} onSubmit={onSubmit} />
+        <Modal
+          isOpen={modalOpen1}
+          closeModal={() => setModalOpen1(false)}
+          num={1}
+          onSubmit={onSubmit}
+          userId={userId}
+        />
       )}
 
       {modalOpen2 && (
-        <Modal isOpen={modalOpen2} closeModal={() => setModalOpen2(false)} num={2} onSubmit={onSubmit} />
+        <Modal
+          isOpen={modalOpen2}
+          closeModal={() => setModalOpen2(false)}
+          num={2}
+          onSubmit={onSubmit}
+          scheduleList={scheduleList}
+          onDelete={handleDelete}
+          userId={userId}
+        />
       )}
 
       {modalOpen3 && (
-        <Modal isOpen={modalOpen3} closeModal={() => setModalOpen3(false)} num={3} onSubmit={onSubmit} />
+        <Modal
+          isOpen={modalOpen3}
+          closeModal={() => setModalOpen3(false)}
+          num={3}
+          onSubmit={onSubmit}
+        />
       )}
     </Wrapper>
   );
@@ -71,7 +91,7 @@ const Button = styled.button`
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   transition: 0.5s;
-  
+
   &:hover {
     background-color: #6f7687;
   }

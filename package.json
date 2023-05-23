@@ -21,7 +21,7 @@
     "styled-components": "^5.3.9",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/",
+  "proxy": "https://port-0-ssupower-back-29i2dlhoohpb6.sel4.cloudtype.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
