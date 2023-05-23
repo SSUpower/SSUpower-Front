@@ -159,6 +159,16 @@ const SubmitButton = styled.button`
   transition: transform 80ms ease-in;
   transform: scale(1.0);
   outline: none;
+
+  &:hover {
+    background-color: #fff;
+    color: #2e3a51;
+  }
+
+  &:active {
+    background-color: #2e3a51;
+    color: #fff;
+  }
 `;
 
 const LoginLinkContainer = styled.div`
