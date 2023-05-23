@@ -13,21 +13,22 @@ const MapMain = () => {
 	const [user,setUser] = useRecoilState(isUserState);
 	const [loginState, setLoginState] = useRecoilState(isLoggedInState);
 	const navigate = useNavigate();
+	const userId = user.id;
 
 	useEffect(() => {
-		axios.get('/map/select')
+		axios.post(`/map/${userId}/select`)
 			.then((response) => {
 				console.log(response.data);
-				setPositions(response.data); // 받아온 데이터를 state에 저장
-		})
-		.catch((error) => {
-			console.log(error);
-		});
+				setPositions(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 
 		if (!loginState){
 			navigate('/login');
 		}
-
+			
 	}, []);
 
 	useEffect(() => {
