@@ -4,22 +4,20 @@ import ScheduleForm from "./ScheduleForm";
 import initialState, { timeSlots } from "./initialState";
 import axios from "axios";
 import Navbar from "../Navigator/Navigator";
-import { useRecoilState } from 'recoil';
+import { useRecoilState } from "recoil";
 import { isUserState, isLoggedInState } from "../state";
 
 function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
-  const [user,setUser] = useRecoilState(isUserState);
-  const [loginState, setLoginState] = useRecoilState(isLoggedInState);
+  const [scheduleList, setScheduleList] = useState([]);
+  const [user, setUser] = useRecoilState(isUserState);
+  const userId = user.id;
 
   useEffect(() => {
     axios
-      .get("/timetable/select")
+      .post(`/timetable/${userId}/select`)
       .then((response) => {
-        console.log('user: ',user);
-        console.log('loginState: ', loginState);
         const receivedSchedule = response.data;
-        console.log(receivedSchedule);
         const updatedSchedule = { ...initialState.schedule };
 
         receivedSchedule.forEach((timetable) => {
@@ -37,15 +35,19 @@ function ScheduleMain() {
           }
         });
 
+        const schedules = receivedSchedule.map((timetable) => [
+          timetable.subject + "  (" + timetable.day + ")",
+        ]);
+
         setSchedule(updatedSchedule);
-        console.log(schedule);
+        setScheduleList(schedules);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user]);
 
-  const onSubmit = ({ day, startTime, endTime, subject, room }) => {
+  const onSubmit = ({ day, startTime, endTime, subject, room, userId }) => {
     setSchedule((prevSchedule) => {
       const newSchedule = { ...prevSchedule };
       for (
@@ -59,17 +61,36 @@ function ScheduleMain() {
           endTime: endTime,
         };
       }
+      console.log(userId);
       return newSchedule;
     });
+  };
+
+  const handleDelete = (selectedSchedule) => {
+    axios
+      .delete(`/timetable/${userId}/${selectedSchedule}/delete`)
+      .then(() => {
+        setScheduleList((prevScheduleList) =>
+          prevScheduleList.filter(
+            (schedule) => schedule[0] !== selectedSchedule
+          )
+        );
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
     <>
       <Navbar />
-      <ScheduleForm onSubmit={onSubmit} />
+      <ScheduleForm
+        onSubmit={onSubmit}
+        scheduleList={scheduleList}
+        onDelete={handleDelete}
+        userId={userId}
+      />
+
       <ScheduleTable schedule={schedule} />
     </>
   );
 }
-
 export default ScheduleMain;
