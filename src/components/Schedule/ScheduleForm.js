@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Modal from "./ScheduleModal";
 
-function ScheduleForm({ onSubmit, scheduleList, handleDelete, userId }) {
+function ScheduleForm({ onSubmit, scheduleList, onDelete, userId }) {
   console.log(userId);
   const [modalOpen1, setModalOpen1] = useState(false);
   const [modalOpen2, setModalOpen2] = useState(false);
@@ -43,7 +43,7 @@ function ScheduleForm({ onSubmit, scheduleList, handleDelete, userId }) {
           num={2}
           onSubmit={onSubmit}
           scheduleList={scheduleList}
-          onDelete={handleDelete}
+          onDelete={onDelete}
           userId={userId}
         />
       )}

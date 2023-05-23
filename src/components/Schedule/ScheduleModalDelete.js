@@ -6,20 +6,22 @@ function ScheduleDelete({ scheduleList, onDelete, userId }) {
   const [selectedSchedule, setSelectedSchedule] = useState("");
   console.log(userId);
   console.log(selectedSchedule);
+  console.log(scheduleList);
+
   const handleDelete = () => {
     if (!selectedSchedule) {
       return;
     }
 
-    const subject = selectedSchedule.split("  (");
-    console.log(subject[0]);
-    subject[0] = encodeURIComponent(subject[0]);
-    console.log(subject[0]);
-    // 삭제 요청을 보내고 응답을 처리하는 로직
+    const [subject, day] = selectedSchedule.split("  (");
+    const scheduleData = {
+      subject: subject,
+      day: day.replace(")", ""),
+    };
+
     axios
-      .delete(`/timetable/${userId}/${subject[0]}/delete`)
+      .delete(`/timetable/${userId}/delete`, { data: scheduleData })
       .then(() => {
-        // 선택한 스케줄 삭제 후 처리할 로직
         onDelete(selectedSchedule);
         setSelectedSchedule("");
       })
@@ -32,11 +34,11 @@ function ScheduleDelete({ scheduleList, onDelete, userId }) {
         name="selectedSchedule"
         onChange={(e) => setSelectedSchedule(e.target.value)}
         value={selectedSchedule}>
-        <option value="">스케줄 선택</option>
+        <Option value="">스케줄 선택</Option>
         {scheduleList.map((schedule) => (
-          <option key={schedule} value={schedule}>
+          <Option key={schedule} value={schedule}>
             {schedule}
-          </option>
+          </Option>
         ))}
       </Select>
       <Button onClick={handleDelete} disabled={!selectedSchedule}>
@@ -55,7 +57,7 @@ const Select = styled.select`
   margin-right: 8px;
   margin-bottom: 4px;
   font-size: 14px;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
 `;
 
 const Button = styled.button`
@@ -67,7 +69,7 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-family: "ChosunGu";
+  font-family: "LINESeedKR-Rg";
 
   color: #ffffff;
   background-color: #2e3a51;
@@ -80,4 +82,8 @@ const Button = styled.button`
   &:hover {
     background-color: #6f7687;
   }
+`;
+
+const Option = styled.option`
+  font-family: "LINESeedKR-Rg";
 `;
