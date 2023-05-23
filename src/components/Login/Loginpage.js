@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Navbar from "../Navigator/Navigator";
 import axios from 'axios';
@@ -16,6 +16,12 @@ function LoginPage() {
   const [user, setUser] = useRecoilState(userState);
   const [loginState, setLoginState] = useRecoilState(LoginState);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginState){
+			navigate('/');
+		}
+  }, []);
 
   const onEmailHandler = (event) => {
     setEmail(event.currentTarget.value);

@@ -4,9 +4,16 @@ import KakaoMapScript from "./KakaoMapScript";
 import GlobalStyle from "../../fonts/GlobalStyle";
 import axios from "axios";
 import Navbar from "../Navigator/Navigator";
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { isUserState, isLoggedInState } from "../state";
 
 const MapMain = () => {
 	const [positions, setPositions] = useState([]);
+	const [user,setUser] = useRecoilState(isUserState);
+	const [loginState, setLoginState] = useRecoilState(isLoggedInState);
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		axios.get('/map/select')
 			.then((response) => {
@@ -16,7 +23,12 @@ const MapMain = () => {
 		.catch((error) => {
 			console.log(error);
 		});
-	}, [])
+
+		if (!loginState){
+			navigate('/login');
+		}
+
+	}, []);
 
 	useEffect(() => {
 		if (positions.length > 0) {
