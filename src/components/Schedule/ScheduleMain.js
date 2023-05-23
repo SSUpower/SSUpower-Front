@@ -11,7 +11,6 @@ function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
   const [scheduleList, setScheduleList] = useState([]);
   const [user, setUser] = useRecoilState(isUserState);
-  const [loginState, setLoginState] = useRecoilState(isLoggedInState);
   const userId = user.id;
 
   useEffect(() => {
@@ -66,35 +65,6 @@ function ScheduleMain() {
       return newSchedule;
     });
   };
-
-  // const handleDelete = (selectedSchedule) => {
-  //   // 선택한 스케줄을 삭제 후 처리할 로직
-  //   axios
-  //     .delete(`/timetable/${userId}/${selectedSchedule}/delete`)
-  //     .then(() => {
-  //       const updatedSchedule = { ...schedule };
-  //       const [subject, day] = selectedSchedule.split("  (");
-  //       const startTime =
-  //         timeSlots[timeSlots.indexOf(updatedSchedule[day][subject].endTime)];
-
-  //       for (let i = timeSlots.indexOf(startTime); i < timeSlots.length; i++) {
-  //         const timeSlot = timeSlots[i];
-  //         if (updatedSchedule[day][timeSlot]?.subject === subject) {
-  //           delete updatedSchedule[day][timeSlot];
-  //         } else {
-  //           break;
-  //         }
-  //       }
-
-  //       setSchedule(updatedSchedule);
-  //       setScheduleList((prevScheduleList) => {
-  //         return prevScheduleList.filter(
-  //           (schedule) => schedule[0] !== selectedSchedule
-  //         );
-  //       });
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
   const handleDelete = (selectedSchedule) => {
     axios
