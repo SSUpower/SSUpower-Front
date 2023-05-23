@@ -10,6 +10,8 @@ function Join() {
   const [Password, setPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const [School, setSchool] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
   const navigate = useNavigate();
 
   const onNameHandler = (event) => {
@@ -60,6 +62,8 @@ function Join() {
     })
     .catch((error) => {
       console.log(error);
+      setErrorMessage(error.response.data.message);
+      setShowErrorMessage(true);
     });
   }
 
@@ -91,11 +95,14 @@ function Join() {
           Join
         </SubmitButton>
 
+        { showErrorMessage && <ErrorText style={{color: '#D1180B'}}> {errorMessage} </ErrorText> }
+      
         <LoginLinkContainer>
             <LoginLinkSpan>이미 계정이 있으신가요? </LoginLinkSpan>
             <LoginLink href="/#/Login">로그인하기</LoginLink>
         </LoginLinkContainer>
       </JoinForm>
+
 
     </JoinContainer>
   )
@@ -167,4 +174,10 @@ const LoginLink = styled.a`
   color: blue;
   font-weight: normal;
 
+`;
+
+const ErrorText= styled.div`
+  width: 300px;
+  margin-top: 20px;
+  text-align: center;
 `;
