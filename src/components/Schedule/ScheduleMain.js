@@ -4,6 +4,7 @@ import ScheduleForm from "./ScheduleForm";
 import initialState, { timeSlots } from "./initialState";
 import axios from "axios";
 import Navbar from "../Navigator/Navigator";
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { isUserState, isLoggedInState } from "../state";
 
@@ -11,6 +12,8 @@ function ScheduleMain() {
   const [schedule, setSchedule] = useState(initialState.schedule);
   const [scheduleList, setScheduleList] = useState([]);
   const [user, setUser] = useRecoilState(isUserState);
+  const [loginState, setLoginState] = useRecoilState(isLoggedInState);
+  const navigate = useNavigate();
   const userId = user.id;
 
   useEffect(() => {
@@ -45,6 +48,11 @@ function ScheduleMain() {
       .catch((error) => {
         console.log(error);
       });
+
+      if (!loginState){
+        navigate('/login');
+      }
+
   }, [user]);
 
   const onSubmit = ({ day, startTime, endTime, subject, room, userId }) => {
