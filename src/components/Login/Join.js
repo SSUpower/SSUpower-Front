@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 import axios from 'axios';
 import Navbar from "../Navigator/Navigator";
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { LoginState, userState } from "../state";
 
 function Join() {
   const [Name, setName] = useState("");
@@ -12,7 +14,14 @@ function Join() {
   const [School, setSchool] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [loginState, setLoginState] = useRecoilState(LoginState);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginState){
+			navigate('/');
+		}
+  }, []);
 
   const onNameHandler = (event) => {
     setName(event.currentTarget.value);
