@@ -87,7 +87,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
         <RenderButton onClick={handleClick}> Render </RenderButton>
       </div>
       <div>
-        <RenderText> {renderDepth + 1} 층 </RenderText>
+        <RenderText> [ {renderDepth + 1} 층 ] </RenderText>
       </div>
         {currentMap.map((row, rowIndex) => (
           <React.Fragment key={rowIndex}>
@@ -113,30 +113,37 @@ export default MapArray;
 const Wrapper = styled.div`
   width : 70vw;
   height : 70vh;
+  font-family: 'ChosunGu';
 `;
 
 const RenderButton = styled.button`
-    border-radius: 20px;
-    border: 1px solid #2e3a51;
-    background-color: #2e3a51;
-    color: #FFFFFF;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    transform: scale(1.0);
-    outline: none;
+  border-radius: 20px;
+  border: 1px solid #2e3a51;
+  background-color: #2e3a51;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  transform: scale(1.0);
+  outline: none;
 
-    &:hover {
-    background-color: #2e3a51;
-    }
+  &:hover {
+    background-color: #6f7687;
+    transition: 0.5s;
+  }
+
+  &:active {
+    background-color: #fff;
+    color: #2e3a51;
+  }
 `;
 
 const RenderText = styled.p`
-    color: #2e3a51;
-    font-family: 'ChosunGu';
-    font-size: 14px;
-    font-weight: bold;
+  color: #2e3a51;
+  font-family: 'ChosunGu';
+  font-size: 15px;
+  font-weight: bold;
 `;
