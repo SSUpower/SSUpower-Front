@@ -1,4 +1,4 @@
-const BFS = (start, Destdepth, classLocation, array3D) => {
+const BFS = (start, Destdepth, classLocation, stair, elevator, array3D) => {
 
 	if (!start || !Destdepth || !classLocation || !array3D) {
 		console.error('One or more arguments are undefined');
@@ -77,11 +77,18 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
 };
 
 // helper function to check if a position can be moved to
-const canMoveTo = (char) => {
-	if (char === '0' || char === '3' || char === '2' || char === '4')
-  	return true;
-	else
-		return false;
+const canMoveTo = (char, stair, elevator) => {
+  if (char === '0') {
+    return true;
+  } else if (char === '2' && stair) {
+    return true;
+  } else if (char === '3' && stair) {
+    return true;
+  } else if (char === '4' && elevator) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export default BFS;

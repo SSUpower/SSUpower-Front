@@ -3,7 +3,7 @@ import styled from "styled-components";
 import getCellStyle from "../getCellStyle";
 import findRoute from "./findRoute";
 
-const MapArray21 = ({ string, row, col, depth, base, gate, classID }) => {
+const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, classID }) => {
   const [cellStyles, setCellStyles] = useState({});
   const [mapstring, setMapstring] = useState(string);
   const [renderDepth, setRenderDepth] = useState(0);
@@ -50,7 +50,7 @@ const MapArray21 = ({ string, row, col, depth, base, gate, classID }) => {
   );
 
   // findRoute 함수에 array3D를 전달
-  const routes = findRoute(classID, gate, base, array3D);
+  const routes = findRoute(classID, gate, base, stair, elevator, array3D);
 
   const render = (routes) => {
     let modifiedString = string;
