@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import getCellStyle from './getCellStyle';
-import findRoute from './findRoute';
+import getCellStyle from "../getCellStyle";
+import findRoute from "./findRoute";
 
-const MapArray = ({ string, row, col, depth, classID }) => {
+const MapArray11 = ({ string, row, col, depth, classID }) => {
   const [cellStyles, setCellStyles] = useState({});
   const [mapstring, setMapstring] = useState(string);
   const [renderDepth, setRenderDepth] = useState(0);
@@ -34,10 +34,10 @@ const MapArray = ({ string, row, col, depth, classID }) => {
       }
     }
     setCellStyles(initialStyles);
-  }, [mapstring, row, col, depth ]);
+  }, [mapstring, row, col, depth]);
 
   // 유효성 검사
-  if (!string || !row || !col || !depth ) {
+  if (!string || !row || !col || !depth) {
     return <div>Invalid Map</div>;
   }
 
@@ -52,7 +52,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
   const routes = findRoute(classID, array3D);
 
   const render = (routes) => {
-    let modifiedString = string; 
+    let modifiedString = string;
     let index = 0;
     const interval = setInterval(() => {
       if (index >= routes.length) {
@@ -61,15 +61,18 @@ const MapArray = ({ string, row, col, depth, classID }) => {
         return;
       }
       const [depth, row, col] = routes[index];
-      modifiedString = modifiedString.substring(0, depth * 100 + row * 10 + col) + '%' + modifiedString.substring(depth * 100 + row * 10 + col + 1);
+      modifiedString =
+        modifiedString.substring(0, depth * 100 + row * 10 + col) +
+        "%" +
+        modifiedString.substring(depth * 100 + row * 10 + col + 1);
       setMapstring(modifiedString);
       setRenderDepth(depth);
       index++;
     }, 500);
   };
-  
+
   const handleClick = () => {
-    if (!isrender){
+    if (!isrender) {
       setIsRender(true);
       render(routes);
     }
@@ -78,61 +81,60 @@ const MapArray = ({ string, row, col, depth, classID }) => {
   const currentMap = array3D[0];
 
   const Cell = styled.div`
-  display: inline-block;
-  width: ${isMobile}px;
-  height: ${isMobile}px;
-  border: 1px solid #ccc;
-  background-color: #ffffff;
-  font-family: "Noto Sans KR", sans-serif;
-`;
+    display: inline-block;
+    width: ${isMobile}px;
+    height: ${isMobile}px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    font-family: "Noto Sans KR", sans-serif;
+  `;
 
   return (
     <Wrapper>
-      <br /> <div>
+      <br />{" "}
+      <div>
         <RenderButton onClick={handleClick}> Render </RenderButton>
       </div>
       <div>
         <RenderText> [ {renderDepth + 1} 층 ] </RenderText>
       </div>
-        {currentMap.map((row, rowIndex) => (
-          <React.Fragment key={rowIndex}>
-            {row.map((col, colIndex) => (
-              <Cell
-                key={`${renderDepth}-${rowIndex}-${colIndex}`}
-                style={cellStyles[`${renderDepth}-${rowIndex}-${colIndex}`]}
-              >
-                {/* {col} */}
-                ㅤ
-              </Cell>
-            ))}
-            <br />
-          </React.Fragment>
-        ))}
+      {currentMap.map((row, rowIndex) => (
+        <React.Fragment key={rowIndex}>
+          {row.map((col, colIndex) => (
+            <Cell
+              key={`${renderDepth}-${rowIndex}-${colIndex}`}
+              style={cellStyles[`${renderDepth}-${rowIndex}-${colIndex}`]}
+            >
+              {/* {col} */}ㅤ
+            </Cell>
+          ))}
+          <br />
+        </React.Fragment>
+      ))}
     </Wrapper>
   );
-
 };
 
-export default MapArray;
+export default MapArray11;
 
 const Wrapper = styled.div`
-  width : 70vw;
-  height : 70vh;
-  font-family: 'ChosunGu';
+  width: 70vw;
+  height: 70vh;
+  font-family: "ChosunGu";
 `;
 
 const RenderButton = styled.button`
   border-radius: 20px;
   border: 1px solid #2e3a51;
   background-color: #2e3a51;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  transform: scale(1.0);
+  transform: scale(1);
   outline: none;
 
   &:hover {
@@ -148,7 +150,7 @@ const RenderButton = styled.button`
 
 const RenderText = styled.p`
   color: #2e3a51;
-  font-family: 'ChosunGu';
+  font-family: "ChosunGu";
   font-size: 15px;
   font-weight: bold;
 `;
