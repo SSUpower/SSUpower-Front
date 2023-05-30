@@ -9,6 +9,7 @@ const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, clas
   const [renderDepth, setRenderDepth] = useState(0);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [isMobile, setiIsMobile] = useState(30);
+  const [isMobileFont, setiIsMobileFont] = useState(30);
   const [isrender, setIsRender] = useState(false);
 
   useEffect(() => {
@@ -16,8 +17,8 @@ const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, clas
       setInnerWidth(window.innerWidth);
     };
     window.addEventListener("resize", resizeListener);
-    if (innerWidth < 510) setiIsMobile(20);
-    else setiIsMobile(30);
+    if (innerWidth < 510) {setiIsMobile(20); setiIsMobileFont(15);}
+    else {setiIsMobile(30); setiIsMobileFont(25);}
   }, [innerWidth, isMobile]);
 
   useEffect(() => {
@@ -88,6 +89,7 @@ const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, clas
     border: 1px solid #ccc;
     background-color: #ffffff;
     font-family: "Noto Sans KR", sans-serif;
+    font-size: ${isMobileFont}px;
   `;
 
   return (
@@ -113,14 +115,27 @@ const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, clas
       </div>
       {currentMap.map((row, rowIndex) => (
         <React.Fragment key={rowIndex}>
-          {row.map((col, colIndex) => (
-            <Cell
-              key={`${renderDepth}-${rowIndex}-${colIndex}`}
-              style={cellStyles[`${renderDepth}-${rowIndex}-${colIndex}`]}
-            >
-              {/* {col} */}ㅤ
-            </Cell>
-          ))}
+          {row.map((col, colIndex) => {
+            let content = 'ㅤ';
+
+            if (col === '2') {
+              content = '⇧';
+            } else if (col === '3') {
+              content = '⇩';
+            } else if (col === '4') {
+              content = '囚';
+            }
+
+            return (
+              <Cell
+                key={`${renderDepth}-${rowIndex}-${colIndex}`}
+                style={cellStyles[`${renderDepth}-${rowIndex}-${colIndex}`]}
+              >
+                {content}
+              </Cell>
+            );
+
+          })}
           <br />
         </React.Fragment>
       ))}
