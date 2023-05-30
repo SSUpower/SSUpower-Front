@@ -9,6 +9,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
   const [renderDepth, setRenderDepth] = useState(0);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [isMobile, setiIsMobile] = useState(30);
+  const [isrender, setIsRender] = useState(false);
 
   useEffect(() => {
     const resizeListener = () => {
@@ -56,6 +57,7 @@ const MapArray = ({ string, row, col, depth, classID }) => {
     const interval = setInterval(() => {
       if (index >= routes.length) {
         clearInterval(interval);
+        setIsRender(false);
         return;
       }
       const [depth, row, col] = routes[index];
@@ -67,7 +69,10 @@ const MapArray = ({ string, row, col, depth, classID }) => {
   };
   
   const handleClick = () => {
-    render(routes);
+    if (!isrender){
+      setIsRender(true);
+      render(routes);
+    }
   };
 
   const currentMap = array3D[0];
