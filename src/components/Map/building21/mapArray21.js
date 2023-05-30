@@ -3,7 +3,7 @@ import styled from "styled-components";
 import getCellStyle from "../getCellStyle";
 import findRoute from "./findRoute";
 
-const MapArray21 = ({ string, row, col, depth, classID }) => {
+const MapArray21 = ({ string, row, col, depth, base, gate, classID }) => {
   const [cellStyles, setCellStyles] = useState({});
   const [mapstring, setMapstring] = useState(string);
   const [renderDepth, setRenderDepth] = useState(0);
@@ -38,6 +38,7 @@ const MapArray21 = ({ string, row, col, depth, classID }) => {
 
   // 유효성 검사
   if (!string || !row || !col || !depth) {
+    console.log(string, row, col, depth)
     return <div>Invalid Map</div>;
   }
 
@@ -49,7 +50,7 @@ const MapArray21 = ({ string, row, col, depth, classID }) => {
   );
 
   // findRoute 함수에 array3D를 전달
-  const routes = findRoute(classID, array3D);
+  const routes = findRoute(classID, gate, array3D);
 
   const render = (routes) => {
     let modifiedString = string;
@@ -96,7 +97,19 @@ const MapArray21 = ({ string, row, col, depth, classID }) => {
         <RenderButton onClick={handleClick}> Render </RenderButton>
       </div>
       <div>
-        <RenderText> [ {renderDepth + 1} 층 ] </RenderText>
+        <RenderText>
+          {base === 0 ? (
+            `[ ${renderDepth + 1} 층 ]`
+          ) : (
+            <>
+              {renderDepth === 0 ? (
+                <span>B1 층</span>
+              ) : (
+                <span>[ {renderDepth} 층 ]</span>
+              )}
+            </>
+          )}
+        </RenderText>
       </div>
       {currentMap.map((row, rowIndex) => (
         <React.Fragment key={rowIndex}>

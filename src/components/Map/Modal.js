@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import ModalContents21 from "./building21/ModalContents21";
 import ModalContents11 from "./building11/ModalContents11";
+import GlobalStyle from "../../fonts/GlobalStyle";
 
 function Modal({ isOpen, closeModal, positionId, classId }) {
-
   let ModalContentsComponent = null;
 
   switch(positionId) {
@@ -24,10 +24,11 @@ function Modal({ isOpen, closeModal, positionId, classId }) {
     <>
       {isOpen && (
         <Wrapper>
+          <GlobalStyle />
           <Button onClick={closeModal}> 창 닫기 </Button>
           <br />
           {ModalContentsComponent && <ModalContentsComponent classID={classId} />}
-          {! ModalContentsComponent && <p> 준비중 </p>}
+          {!ModalContentsComponent && <p> 준비중 </p>}
        </Wrapper>
       )}
     </>

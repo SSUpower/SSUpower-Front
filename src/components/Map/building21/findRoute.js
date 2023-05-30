@@ -1,10 +1,10 @@
 import BFS from "../BFS";
 
-const findRoute21 = (classID, array3D) => {
+const findRoute21 = (classID, gate, array3D) => {
   classID = String(classID);
   let Destdepth = parseInt(classID.charAt(0)) - 1;
   let classLocation = "";
-  let start = [0, 5, 4];
+  let start = gate;
 
   switch (classID.slice(1)) {
     case "01":
