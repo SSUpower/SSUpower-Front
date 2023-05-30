@@ -1,6 +1,6 @@
 import BFS from "../BFS";
 
-const findRoute21 = (classID, gate, array3D) => {
+const findRoute21 = (classID, gate, base, array3D) => {
   classID = String(classID);
   let Destdepth = parseInt(classID.charAt(0)) - 1;
   let classLocation = "";
@@ -46,8 +46,7 @@ const findRoute21 = (classID, gate, array3D) => {
     `Depth: ${Destdepth}, Class Location: ${classLocation} Sdepth: ${start[0]}, Srow: ${start[1]}, Scol: ${start[2]}`
   );
   // BFS 호출
-  // console.log(`${array3D[0][5][4]}`);
-  const route = BFS(start, Destdepth, classLocation, array3D);
+  const route = BFS(start, Destdepth+base, classLocation, array3D);
   return route;
 };
 

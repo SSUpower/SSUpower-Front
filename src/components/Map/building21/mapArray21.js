@@ -50,7 +50,7 @@ const MapArray21 = ({ string, row, col, depth, base, gate, classID }) => {
   );
 
   // findRoute 함수에 array3D를 전달
-  const routes = findRoute(classID, gate, array3D);
+  const routes = findRoute(classID, gate, base, array3D);
 
   const render = (routes) => {
     let modifiedString = string;

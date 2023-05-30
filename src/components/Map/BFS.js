@@ -5,11 +5,9 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
 		return;
 	}
 
-	// console.log(array3D[1][6][5]);
-
   const queue = [];
   const visited = new Set();
-  queue.push([start, [0, 5, 4]]);
+  queue.push([start, start]);
 
   const ROW = array3D[0].length;
   const COL = array3D[0][0].length;
@@ -17,6 +15,7 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
   while (queue.length > 0) {
     const current = queue.shift();
     const [depth, row, col] = current[current.length - 1];
+    console.log(depth, row, col);
 
     // add the current position to visited set
     const key = `${depth}-${row}-${col}`;
@@ -31,6 +30,12 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
     } else if (array3D[depth][row][col] === '2') {
       if (depth > 0 && !visited.has(`${depth-1}-${row-1}-${col}`)) {
         queue.push([...current, [depth-1, row-1, col], [depth-1, row-1, col+1]]);
+      }
+      continue;
+    }
+    else if (array3D[depth][row][col] === '4') {
+      if (!visited.has(`${Destdepth}-${row-1}-${col}`)) {
+        queue.push([...current, [Destdepth, row, col], [Destdepth, row, col-1]]);
       }
       continue;
     }
@@ -73,7 +78,7 @@ const BFS = (start, Destdepth, classLocation, array3D) => {
 
 // helper function to check if a position can be moved to
 const canMoveTo = (char) => {
-	if (char === '0' || char === '3' || char === '2')
+	if (char === '0' || char === '3' || char === '2' || char === '4')
   	return true;
 	else
 		return false;
