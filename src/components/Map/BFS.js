@@ -45,28 +45,28 @@ const BFS = (start, Destdepth, classLocation, stair, elevator, array3D) => {
       if (depth === Destdepth && array3D[depth][row][col-1] === classLocation) {
 				return [...current, [depth, row, col-1]];
 			}
-			else if (canMoveTo(array3D[depth][row][col-1]))
+			else if (canMoveTo(array3D[depth][row][col-1], stair, elevator))
 				queue.push([...current, [depth, row, col-1]]);
     }
     if (col < COL-1 && !visited.has(`${depth}-${row}-${col+1}`)) {
       if (depth === Destdepth && array3D[depth][row][col+1] === classLocation) {
 				return [...current, [depth, row, col+1]];
 			}
-			else if (canMoveTo(array3D[depth][row][col+1]))
+			else if (canMoveTo(array3D[depth][row][col+1], stair, elevator))
 				queue.push([...current, [depth, row, col+1]]);
     }
     if (row > 0 && !visited.has(`${depth}-${row-1}-${col}`)) {
 			if (depth === Destdepth && array3D[depth][row-1][col] === classLocation) {
 				return [...current, [depth, row-1, col]];
 			}
-			else if (canMoveTo(array3D[depth][row-1][col]))
+			else if (canMoveTo(array3D[depth][row-1][col], stair, elevator))
 				queue.push([...current, [depth, row-1, col]]);
     }
     if (row < ROW-1 && !visited.has(`${depth}-${row+1}-${col}`)) {
       if (depth === Destdepth && array3D[depth][row+1][col] === classLocation) {
 				return [...current, [depth, row+1, col]];
 			}
-			else if (canMoveTo(array3D[depth][row+1][col]))
+			else if (canMoveTo(array3D[depth][row+1][col], stair, elevator))
 				queue.push([...current, [depth, row+1, col]]);
     }
   }
