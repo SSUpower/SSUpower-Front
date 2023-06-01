@@ -21,6 +21,33 @@ const getCellColor = (char) => {
       case 'G':
       case 'g':
         return '#D0c8B6';
+      case 'H':
+      case 'h':
+        return '#E4BCB1';
+      case 'i':
+      case 'I':
+        return '#FAE39D';
+      case 'J':
+      case 'j':
+        return '#ACBD98';
+      case 'K':
+      case 'k':
+        return '#A2D0DB';
+      case 'L':
+      case 'l':
+        return '#C4B9D0';
+      case 'M':
+      case 'm':
+        return '#FFE5DB';
+      case 'N':
+      case 'n':
+        return '#D0c8B6';
+      case 'O':
+      case 'o':
+        return '#E4BCB1';
+      case 'P':
+      case 'p':
+        return '#FAE39D';
       case '0':
         return '#D3D3D3';
       case '9':

@@ -3,12 +3,13 @@ import styled from "styled-components";
 import getCellStyle from "../getCellStyle";
 import findRoute from "./findRoute";
 
-const MapArray11 = ({ string, row, col, depth, classID }) => {
+const MapArray11 = ({ string, row, col, depth, gate, stair, elevator, classID }) => {
   const [cellStyles, setCellStyles] = useState({});
   const [mapstring, setMapstring] = useState(string);
   const [renderDepth, setRenderDepth] = useState(0);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [isMobile, setiIsMobile] = useState(30);
+  const [isMobileFont, setiIsMobileFont] = useState(25);
   const [isrender, setIsRender] = useState(false);
 
   useEffect(() => {
@@ -16,8 +17,8 @@ const MapArray11 = ({ string, row, col, depth, classID }) => {
       setInnerWidth(window.innerWidth);
     };
     window.addEventListener("resize", resizeListener);
-    if (innerWidth < 510) setiIsMobile(20);
-    else setiIsMobile(30);
+    if (innerWidth < 510) {setiIsMobile(20); setiIsMobileFont(15);}
+    else {setiIsMobile(30); setiIsMobileFont(25);}
   }, [innerWidth, isMobile]);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const MapArray11 = ({ string, row, col, depth, classID }) => {
   );
 
   // findRoute 함수에 array3D를 전달
-  const routes = findRoute(classID, array3D);
+  const routes = findRoute(classID, gate, stair, elevator, array3D);
 
   const render = (routes) => {
     let modifiedString = string;
@@ -61,10 +62,11 @@ const MapArray11 = ({ string, row, col, depth, classID }) => {
         return;
       }
       const [depth, row, col] = routes[index];
+      console.log(depth, row, col);
       modifiedString =
-        modifiedString.substring(0, depth * 100 + row * 10 + col) +
+        modifiedString.substring(0, depth * 187 + row * 17 + col) +
         "%" +
-        modifiedString.substring(depth * 100 + row * 10 + col + 1);
+        modifiedString.substring(depth * 187 + row * 17 + col + 1);
       setMapstring(modifiedString);
       setRenderDepth(depth);
       index++;
@@ -87,32 +89,46 @@ const MapArray11 = ({ string, row, col, depth, classID }) => {
     border: 1px solid #ccc;
     background-color: #ffffff;
     font-family: "Noto Sans KR", sans-serif;
+    font-size: ${isMobileFont}px;
   `;
 
-  return (
-    <Wrapper>
-      <br />{" "}
-      <div>
-        <RenderButton onClick={handleClick}> Render </RenderButton>
-      </div>
-      <div>
-        <RenderText> [ {renderDepth + 1} 층 ] </RenderText>
-      </div>
-      {currentMap.map((row, rowIndex) => (
-        <React.Fragment key={rowIndex}>
-          {row.map((col, colIndex) => (
+return (
+  <Wrapper>
+    <br />{" "}
+    <div>
+      <RenderButton onClick={handleClick}> Render </RenderButton>
+    </div>
+    <div>
+      <RenderText> [ {renderDepth + 1} 층 ] </RenderText>
+    </div>
+    {currentMap.map((row, rowIndex) => (
+      <React.Fragment key={rowIndex}>
+        {row.map((col, colIndex) => {
+          let content = 'ㅤ';
+
+          if (col === '3') {
+            content = '↗ ';
+          } else if (col === '2') {
+            content = '↙';
+          } else if (col === '4') {
+            content = '囚';
+          }
+
+          return (
             <Cell
               key={`${renderDepth}-${rowIndex}-${colIndex}`}
               style={cellStyles[`${renderDepth}-${rowIndex}-${colIndex}`]}
             >
-              {/* {col} */}ㅤ
+              {content}
             </Cell>
-          ))}
-          <br />
-        </React.Fragment>
-      ))}
-    </Wrapper>
-  );
+          );
+
+        })}
+        <br />
+      </React.Fragment>
+    ))}
+  </Wrapper>
+);
 };
 
 export default MapArray11;

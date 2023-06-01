@@ -53,6 +53,8 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
+  overflow-x: auto;
+  white-space: nowrap;
 `;
 
 const Button = styled.button`

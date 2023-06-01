@@ -15,7 +15,6 @@ const BFS = (start, Destdepth, classLocation, stair, elevator, array3D) => {
   while (queue.length > 0) {
     const current = queue.shift();
     const [depth, row, col] = current[current.length - 1];
-    console.log(depth, row, col);
 
     // add the current position to visited set
     const key = `${depth}-${row}-${col}`;

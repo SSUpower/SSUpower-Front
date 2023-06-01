@@ -9,7 +9,7 @@ const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, clas
   const [renderDepth, setRenderDepth] = useState(0);
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [isMobile, setiIsMobile] = useState(30);
-  const [isMobileFont, setiIsMobileFont] = useState(30);
+  const [isMobileFont, setiIsMobileFont] = useState(25);
   const [isrender, setIsRender] = useState(false);
 
   useEffect(() => {
@@ -64,9 +64,9 @@ const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, clas
       }
       const [depth, row, col] = routes[index];
       modifiedString =
-        modifiedString.substring(0, depth * 100 + row * 10 + col) +
+        modifiedString.substring(0, depth * 110 + row * 10 + col) +
         "%" +
-        modifiedString.substring(depth * 100 + row * 10 + col + 1);
+        modifiedString.substring(depth * 110 + row * 10 + col + 1);
       setMapstring(modifiedString);
       setRenderDepth(depth);
       index++;
@@ -118,10 +118,10 @@ const MapArray21 = ({ string, row, col, depth, base, gate, stair, elevator, clas
           {row.map((col, colIndex) => {
             let content = 'ㅤ';
 
-            if (col === '2') {
-              content = '⇧';
-            } else if (col === '3') {
-              content = '⇩';
+            if (col === '3') {
+              content = '↗ ';
+            } else if (col === '2') {
+              content = '↙';
             } else if (col === '4') {
               content = '囚';
             }
