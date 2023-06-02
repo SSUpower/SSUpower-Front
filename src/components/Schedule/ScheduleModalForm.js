@@ -132,6 +132,7 @@ const Form = styled.form`
   font-family: "LINESeedKR-Rg";
   margin: 20px auto;
   width: 100%;
+  overflow-y: scroll;
 `;
 
 const FormItem = styled.div`

@@ -1,8 +1,8 @@
-import React, { useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { daysOfWeek, timeSlots } from "./initialState";
 
-function ScheduleTable({ schedule}) {
+function ScheduleTable({ schedule }) {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [tdSize, setTdSize] = useState(200);
 
@@ -17,17 +17,46 @@ function ScheduleTable({ schedule}) {
     else setTdSize(200);
   }, [innerWidth]);
 
+  const pastelColors = [
+    "#FFDCE0",
+    "#FFD9C4",
+    "#FFF4C1",
+    "#E8F7D9",
+    "#D5F1F7",
+    "#F6DDF7",
+    "#F9EEED",
+  ];
+  const colorMap = {};
+
+  const getRandomColor = (subject) => {
+    if (!colorMap[subject]) {
+      if (Object.keys(colorMap).length < pastelColors.length) {
+        const availableColors = pastelColors.filter(
+          (color) => !Object.values(colorMap).includes(color)
+        );
+        colorMap[subject] =
+          availableColors[Math.floor(Math.random() * availableColors.length)];
+      } else {
+        colorMap[subject] =
+          pastelColors[Math.floor(Math.random() * pastelColors.length)];
+      }
+    }
+    return colorMap[subject];
+  };
+
   const Td = styled.td`
-  text-align: center;
-  border: 1px solid #ddd;
-  width: ${tdSize}px;
-  overflow: hidden;
-  white-space: wrap;
-  text-overflow: ellipsis;
-  height: 30px;
-  ${(props) => props.isEvenRow && "border-top: white"}
-  ${(props) => !props.isEvenRow && "border-bottom: none"}
-`;
+    text-align: center;
+    border: 1px solid #ddd;
+    width: ${tdSize}px;
+    overflow: hidden;
+    white-space: wrap;
+    text-overflow: ellipsis;
+    height: 30px;
+    ${(props) => props.isEvenRow && "border-top: 1px solid white;"}
+    ${(props) => !props.isEvenRow && "border-bottom: none;"}
+    position: relative;
+    background-color: ${(props) => props.backgroundColor};
+  `;
 
   return (
     <>
@@ -64,6 +93,9 @@ function ScheduleTable({ schedule}) {
               timeRange.push(timeSlots[i]);
             }
 
+            // Get the background color based on subject
+            const backgroundColor = getRandomColor(subject);
+
             return (
               <tr key={time}>
                 <Th isEvenRow={index % 2 !== 0} style={{ width: "50px" }}>
@@ -78,7 +110,7 @@ function ScheduleTable({ schedule}) {
                   subject={subject}
                   room={room}
                   isEvenRow={index % 2 !== 0}
-                  style={subject ? { backgroundColor: "#e2eef9" } : {}}>
+                  style={subject ? { backgroundColor: backgroundColor } : {}}>
                   {subject ? `${subject} (${room})` : ""}
                 </Td>
                 {daysOfWeek.slice(1).map((day) => (
@@ -91,7 +123,7 @@ function ScheduleTable({ schedule}) {
                     isEvenRow={index % 2 !== 0}
                     style={
                       schedule[day][time].subject
-                        ? { backgroundColor: "#e2eef9" }
+                        ? { backgroundColor: backgroundColor }
                         : {}
                     }>
                     {schedule[day][time].subject
@@ -126,7 +158,10 @@ const Th = styled.th`
   height: 18px;
   border: 1px solid #ddd;
   color: #333;
-  ${(props) => props.isEvenRow && "color: transparent; border-top: white"}
-  ${(props) => !props.isEvenRow && "border-bottom: none"}
-`;
+  ${(props) =>
+    props.isEvenRow && "color: transparent; border-top: 1px solid white;"}
+  ${(props) => !props.isEvenRow && "border-bottom: none;"}
+  position: relative;
 
+  }
+`;
