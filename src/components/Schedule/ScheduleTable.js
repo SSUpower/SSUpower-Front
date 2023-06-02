@@ -17,28 +17,27 @@ function ScheduleTable({ schedule }) {
     else setTdSize(200);
   }, [innerWidth]);
 
-  const pastelColors = [
-    "#FFDCE0",
-    "#FFD9C4",
-    "#FFF4C1",
-    "#E8F7D9",
-    "#D5F1F7",
-    "#F6DDF7",
-    "#F9EEED",
+  const colors = [
+    "#DCF3FF",
+    "#c6dae5",
+    "#e3f1f5",
+    "#c7e4eb",
+    "#d2e9ef",
+    "#e9f4f7",
+    "#b4dbe5",
   ];
   const colorMap = {};
 
   const getRandomColor = (subject) => {
     if (!colorMap[subject]) {
-      if (Object.keys(colorMap).length < pastelColors.length) {
-        const availableColors = pastelColors.filter(
+      if (Object.keys(colorMap).length < colors.length) {
+        const availableColors = colors.filter(
           (color) => !Object.values(colorMap).includes(color)
         );
         colorMap[subject] =
           availableColors[Math.floor(Math.random() * availableColors.length)];
       } else {
-        colorMap[subject] =
-          pastelColors[Math.floor(Math.random() * pastelColors.length)];
+        colorMap[subject] = colors[Math.floor(Math.random() * colors.length)];
       }
     }
     return colorMap[subject];
@@ -64,76 +63,54 @@ function ScheduleTable({ schedule }) {
         <Thead>
           <tr>
             <Th />
-            {daysOfWeek.map((day, index) => {
-              if (index < 0 || index > 4) {
-                return null;
-              }
-              return (
-                <Th key={day} style={{ textAlign: "center" }}>
-                  {day}
-                </Th>
-              );
-            })}
+            {daysOfWeek.map((day, index) => (
+              <Th key={day} style={{ textAlign: "center" }}>
+                {day}
+              </Th>
+            ))}
           </tr>
         </Thead>
         <tbody>
-          {timeSlots.map((time, index) => {
-            const firstDay = daysOfWeek[0];
-            const subject = schedule[firstDay][time].subject;
-            const room = schedule[firstDay][time].room;
-            const startTime = schedule[firstDay][time].startTime;
-            const endTime = schedule[firstDay][time].endTime;
+          {timeSlots.map((time) => (
+            <tr>
+              <Th
+                style={{ width: "50px" }}
+                isEvenRow={timeSlots.indexOf(time) % 2 !== 0}
+                key={time}>
+                {time.indexOf(":") === 1 ? time.slice(0, 1) : time.slice(0, 2)}
+              </Th>
+              {daysOfWeek.map((day) => {
+                const subject = schedule[day][time].subject;
+                const room = schedule[day][time].room;
+                const startTime = schedule[day][time].startTime;
+                const endTime = schedule[day][time].endTime;
 
-            const timeRange = [];
-            for (
-              let i = timeSlots.indexOf(startTime);
-              i <= timeSlots.indexOf(endTime);
-              i++
-            ) {
-              timeRange.push(timeSlots[i]);
-            }
+                const timeRange = [];
+                for (
+                  let i = timeSlots.indexOf(startTime);
+                  i <= timeSlots.indexOf(endTime);
+                  i++
+                ) {
+                  timeRange.push(timeSlots[i]);
+                }
 
-            // Get the background color based on subject
-            const backgroundColor = getRandomColor(subject);
+                const backgroundColor = getRandomColor(subject);
 
-            return (
-              <tr key={time}>
-                <Th isEvenRow={index % 2 !== 0} style={{ width: "50px" }}>
-                  {time.indexOf(":") === 1
-                    ? time.slice(0, 1)
-                    : time.slice(0, 2)}
-                </Th>
-                <Td
-                  key={`${firstDay}-${time}`}
-                  day={firstDay}
-                  time={time}
-                  subject={subject}
-                  room={room}
-                  isEvenRow={index % 2 !== 0}
-                  style={subject ? { backgroundColor: backgroundColor } : {}}>
-                  {subject ? `${subject} (${room})` : ""}
-                </Td>
-                {daysOfWeek.slice(1).map((day) => (
+                return (
                   <Td
                     key={`${day}-${time}`}
                     day={day}
                     time={time}
-                    subject={schedule[day][time].subject}
-                    room={schedule[day][time].room}
-                    isEvenRow={index % 2 !== 0}
-                    style={
-                      schedule[day][time].subject
-                        ? { backgroundColor: backgroundColor }
-                        : {}
-                    }>
-                    {schedule[day][time].subject
-                      ? `${schedule[day][time].subject} (${schedule[day][time].room})`
-                      : ""}
+                    subject={subject}
+                    room={room}
+                    isEvenRow={timeSlots.indexOf(time) % 2 !== 0}
+                    style={subject ? { backgroundColor: backgroundColor } : {}}>
+                    {subject ? `${subject} (${room})` : ""}
                   </Td>
-                ))}
-              </tr>
-            );
-          })}
+                );
+              })}
+            </tr>
+          ))}
         </tbody>
       </Table>
     </>
