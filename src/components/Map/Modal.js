@@ -1,16 +1,35 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import ModalContents from './ModalContents';
+import ModalContents21 from "./building21/ModalContents21";
+import ModalContents11 from "./building11/ModalContents11";
+import GlobalStyle from "../../fonts/GlobalStyle";
 
-function Modal({ isOpen, closeModal, positionId, classId}) {
+function Modal({ isOpen, closeModal, positionId, classId }) {
+  let ModalContentsComponent = null;
+
+  switch(positionId) {
+    case 19:
+      break;
+    case 21:
+      ModalContentsComponent = ModalContents21;
+      break;
+    case 11:
+      ModalContentsComponent = ModalContents11;
+      break;
+    default:
+      break;
+  }
+  
   return (
-      <>
+    <>
       {isOpen && (
         <Wrapper>
+          <GlobalStyle />
           <Button onClick={closeModal}> 창 닫기 </Button>
-            <br />
-          <ModalContents ID={positionId} classID={classId} />
-        </Wrapper>
+          <br />
+          {ModalContentsComponent && <ModalContentsComponent classID={classId} />}
+          {!ModalContentsComponent && <p> 준비중 </p>}
+       </Wrapper>
       )}
     </>
   );
@@ -34,6 +53,8 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   overflow-y: scroll;
+  overflow-x: auto;
+  white-space: nowrap;
 `;
 
 const Button = styled.button`
@@ -42,8 +63,8 @@ const Button = styled.button`
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
-  flex : 0 1 0 ;
-  
+  flex: 0 1 0;
+
   font-family: "Noto Sans KR", sans-serif;
   font-size: 1rem;
   font-weight: 400;
@@ -53,10 +74,11 @@ const Button = styled.button`
   color: #ffffff;
   background-color: #2e3a51;
 
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   transition: 0.5s;
-  
+
   &:hover {
     background-color: #6f7687;
   }
