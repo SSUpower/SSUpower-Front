@@ -33,7 +33,8 @@ function ScheduleDelete({ scheduleList, onDelete, userId }) {
       <Select
         name="selectedSchedule"
         onChange={(e) => setSelectedSchedule(e.target.value)}
-        value={selectedSchedule}>
+        value={selectedSchedule}
+      >
         <Option value="">스케줄 선택</Option>
         {scheduleList.map((schedule) => (
           <Option key={schedule} value={schedule}>

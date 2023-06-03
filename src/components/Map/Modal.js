@@ -7,7 +7,7 @@ import GlobalStyle from "../../fonts/GlobalStyle";
 function Modal({ isOpen, closeModal, positionId, classId }) {
   let ModalContentsComponent = null;
 
-  switch(positionId) {
+  switch (positionId) {
     case 19:
       break;
     case 21:
@@ -19,7 +19,7 @@ function Modal({ isOpen, closeModal, positionId, classId }) {
     default:
       break;
   }
-  
+
   return (
     <>
       {isOpen && (
@@ -27,9 +27,11 @@ function Modal({ isOpen, closeModal, positionId, classId }) {
           <GlobalStyle />
           <Button onClick={closeModal}> 창 닫기 </Button>
           <br />
-          {ModalContentsComponent && <ModalContentsComponent classID={classId} />}
+          {ModalContentsComponent && (
+            <ModalContentsComponent classID={classId} />
+          )}
           {!ModalContentsComponent && <p> 준비중 </p>}
-       </Wrapper>
+        </Wrapper>
       )}
     </>
   );

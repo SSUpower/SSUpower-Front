@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components/macro';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components/macro";
+import axios from "axios";
 import Navbar from "../Navigator/Navigator";
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { LoginState, userState } from "../state";
 
 function Join() {
@@ -18,9 +18,9 @@ function Join() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loginState){
-			navigate('/');
-		}
+    if (loginState) {
+      navigate("/");
+    }
   }, []);
 
   const onNameHandler = (event) => {
@@ -45,12 +45,12 @@ function Join() {
 
   const errorHandler = () => {
     if (Password !== ConfirmPassword) {
-      alert('비밀번호가 같지 않습니다.');
+      alert("비밀번호가 같지 않습니다.");
       return false;
     }
 
-    if(School !== "숭실대학교"){
-      alert('숭실대학교 학생만 가능합니다');
+    if (School !== "숭실대학교") {
+      alert("숭실대학교 학생만 가능합니다");
       return false;
     }
 
@@ -58,27 +58,30 @@ function Join() {
   };
 
   const postTest = () => {
-    axios.post("https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/join",{
-      name: Name,
-      email : Email,
-      password : Password,
-      ConfirmPassword: ConfirmPassword,
-      school: School,
-    })
-    .then((response)=> {
-      console.log(response);
-      navigate('/login');
-    })
-    .catch((error) => {
-      console.log(error);
-      setErrorMessage(error.response.data.message);
-      setShowErrorMessage(true);
-    });
-  }
+    axios
+      .post(
+        "https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/join",
+        {
+          name: Name,
+          email: Email,
+          password: Password,
+          ConfirmPassword: ConfirmPassword,
+          school: School,
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage(error.response.data.message);
+        setShowErrorMessage(true);
+      });
+  };
 
   const JoinHandler = () => {
-    if (errorHandler())
-      postTest();
+    if (errorHandler()) postTest();
   };
 
   return (
@@ -86,35 +89,37 @@ function Join() {
       <Navbar />
       <JoinForm>
         <Label>Name</Label>
-        <Input type='text' value={Name} onChange={onNameHandler} />
+        <Input type="text" value={Name} onChange={onNameHandler} />
 
         <Label>Email</Label>
-        <Input type='email' value={Email} onChange={onEmailHandler} />
+        <Input type="email" value={Email} onChange={onEmailHandler} />
 
         <Label>Password</Label>
-        <Input type='password' value={Password} onChange={onPasswordHandler} />
+        <Input type="password" value={Password} onChange={onPasswordHandler} />
 
         <Label>Confirm Password</Label>
-        <Input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler} />
+        <Input
+          type="password"
+          value={ConfirmPassword}
+          onChange={onConfirmPasswordHandler}
+        />
 
         <Label>School</Label>
-        <Input type='school' value={School} onChange={onSchoolHandler} />
+        <Input type="school" value={School} onChange={onSchoolHandler} />
 
-        <SubmitButton onClick={JoinHandler}>
-          Join
-        </SubmitButton>
+        <SubmitButton onClick={JoinHandler}>Join</SubmitButton>
 
-        { showErrorMessage && <ErrorText style={{color: '#D1180B'}}> {errorMessage} </ErrorText> }
-      
+        {showErrorMessage && (
+          <ErrorText style={{ color: "#D1180B" }}> {errorMessage} </ErrorText>
+        )}
+
         <LoginLinkContainer>
-            <LoginLinkSpan>이미 계정이 있으신가요? </LoginLinkSpan>
-            <LoginLink href="/#/Login">로그인하기</LoginLink>
+          <LoginLinkSpan>이미 계정이 있으신가요? </LoginLinkSpan>
+          <LoginLink href="/#/Login">로그인하기</LoginLink>
         </LoginLinkContainer>
       </JoinForm>
-
-
     </JoinContainer>
-  )
+  );
 }
 
 export default Join;
@@ -150,7 +155,7 @@ const Input = styled.input`
   margin-bottom: 8px;
   padding: 12px 15px;
   width: 200px;
-  text-transform: scale(1.0);
+  text-transform: scale(1);
   border-radius: 20px;
 `;
 
@@ -159,14 +164,14 @@ const SubmitButton = styled.button`
   border-radius: 20px;
   border: 1px solid #2e3a51;
   background-color: #2e3a51;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  transform: scale(1.0);
+  transform: scale(1);
   outline: none;
 
   &:hover {
@@ -192,10 +197,9 @@ const LoginLink = styled.a`
   text-decoration: underline;
   color: blue;
   font-weight: normal;
-
 `;
 
-const ErrorText= styled.div`
+const ErrorText = styled.div`
   width: 300px;
   margin-top: 20px;
   text-align: center;

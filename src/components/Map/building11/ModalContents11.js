@@ -10,7 +10,8 @@ const ModalContents11 = ({ classID }) => {
   const [elevator, setElevator] = useState(false);
 
   let content = "진리관";
-  let mapString = "10mmm11111111111110Mmm1111111111111031111111111111110211111111111111901111111111111111004111111111111110011llkkjjii111110011LlKkJjIi321110000000000000001hHGgfFeEdDcC00001hhggffeeddccBbA9110kkk11111111111110Kkk1111111111111031111111111111110211111111111111101111111111111111004111111111111110011jiijjjjj111110011JiIjjjJj321110000000000000001ggggGFfEeDdCcBbAagggggffeeddccbbaa10hhh11111111111110Hhh1111111111111031111111111111110211111111111111101111111111111111004111111111111110011ggfffeee111110011GgFffEee321110000000000000001ddddDcccCbbbBAaaadddddccccbbbbaaaa";
+  let mapString =
+    "10mmm11111111111110Mmm1111111111111031111111111111110211111111111111901111111111111111004111111111111110011llkkjjii111110011LlKkJjIi321110000000000000001hHGgfFeEdDcC00001hhggffeeddccBbA9110kkk11111111111110Kkk1111111111111031111111111111110211111111111111101111111111111111004111111111111110011jiijjjjj111110011JiIjjjJj321110000000000000001ggggGFfEeDdCcBbAagggggffeeddccbbaa10hhh11111111111110Hhh1111111111111031111111111111110211111111111111101111111111111111004111111111111110011ggfffeee111110011GgFffEee321110000000000000001ddddDcccCbbbBAaaadddddccccbbbbaaaa";
 
   const handleClick1 = () => {
     setGate([0, 4, 0]);
@@ -40,21 +41,19 @@ const ModalContents11 = ({ classID }) => {
       <p>
         {content} - {classID}호{" "}
       </p>
-      {
-        !displayMap &&
+      {!displayMap && (
         <>
           <GateButton onClick={handleClick1}> 학생회관쪽 출입구 </GateButton>
           <GateButton onClick={handleClick2}> 분수대쪽 출입구 </GateButton>
         </>
-      }
-      {
-        displayMap && useWhat &&
+      )}
+      {displayMap && useWhat && (
         <>
           <GateButton onClick={handleStair}> 계단 </GateButton>
           <GateButton onClick={handleElevator}> 엘리베이터 </GateButton>
         </>
-      }
-      { displayMap && !useWhat &&
+      )}
+      {displayMap && !useWhat && (
         <MapArray11
           string={mapString}
           row={11}
@@ -65,7 +64,7 @@ const ModalContents11 = ({ classID }) => {
           elevator={elevator}
           classID={classID}
         />
-      }
+      )}
     </Wrapper>
   );
 };

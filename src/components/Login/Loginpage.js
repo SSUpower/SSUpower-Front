@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Navbar from "../Navigator/Navigator";
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { LoginState, userState } from "../state";
 
 function LoginPage() {
@@ -18,9 +18,9 @@ function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loginState){
-			navigate('/');
-		}
+    if (loginState) {
+      navigate("/");
+    }
   }, []);
 
   const onEmailHandler = (event) => {
@@ -34,32 +34,31 @@ function LoginPage() {
   };
 
   const login = () => {
-    axios.post("https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/",{
-      email : Email,
-      password : Password,
-    })
-    .then((response)=> {
-      console.log(response);
-      if (response.data.id && response.data.email === null){
-        console.log("pass error");
-        setWrongPass(true);
-        setNoUser(false);
-      }
-      else if (response.data.id){
-        setUser(response.data);
-        setLoginState(true);
-        navigate('/');
-      }
-      else{
-        console.log("no user");
-        setNoUser(true);
-        setWrongPass(false);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+    axios
+      .post("https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/", {
+        email: Email,
+        password: Password,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.data.id && response.data.email === null) {
+          console.log("pass error");
+          setWrongPass(true);
+          setNoUser(false);
+        } else if (response.data.id) {
+          setUser(response.data);
+          setLoginState(true);
+          navigate("/");
+        } else {
+          console.log("no user");
+          setNoUser(true);
+          setWrongPass(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const LoginHandler = () => {
     login();
@@ -72,11 +71,10 @@ function LoginPage() {
       setShowPasswordError(true);
       return;
     }
-    
-    if(Email === ""){
+
+    if (Email === "") {
       setShowEmailError(true);
     }
-
   };
 
   return (
@@ -87,19 +85,28 @@ function LoginPage() {
           <Label inputW="200px"> Email</Label>
           <Input type="email" value={Email} onChange={onEmailHandler} />
           <Label inputW="200px">Password</Label>
-          <Input type="password" value={Password} onChange={onPasswordHandler} />
+          <Input
+            type="password"
+            value={Password}
+            onChange={onPasswordHandler}
+          />
 
-          <SubmitButton onClick={LoginHandler} > Login </SubmitButton>
-
+          <SubmitButton onClick={LoginHandler}> Login </SubmitButton>
         </LoginForm>
 
-        { noUser && 
-          (<ErrorText > 아직 회원이 아니신가요? 
+        {noUser && (
+          <ErrorText>
+            {" "}
+            아직 회원이 아니신가요?
             <JoinLink href="/#/Join">회원가입</JoinLink>
-            </ErrorText> 
+          </ErrorText>
         )}
-        { wrongPass && (<ErrorText style={{color: '#D1180B'}} > 비밀번호가 틀렸습니다. </ErrorText>)}
-        
+        {wrongPass && (
+          <ErrorText style={{ color: "#D1180B" }}>
+            {" "}
+            비밀번호가 틀렸습니다.{" "}
+          </ErrorText>
+        )}
       </div>
     </LoginWrapper>
   );
@@ -146,7 +153,7 @@ const SubmitButton = styled.button`
   border-radius: 20px;
   border: 1px solid #2e3a51;
   background-color: #2e3a51;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 12px;
   font-weight: bold;
   margin-top: 25px;
@@ -154,7 +161,7 @@ const SubmitButton = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  transform: scale(1.0);
+  transform: scale(1);
   outline: none;
 
   &:hover {
@@ -168,11 +175,11 @@ const SubmitButton = styled.button`
   }
 `;
 
-const JoinLink= styled.a`
-    color: blue;
+const JoinLink = styled.a`
+  color: blue;
 `;
 
-const ErrorText= styled.div`
+const ErrorText = styled.div`
   width: 300px;
   margin-top: 20px;
   text-align: center;
