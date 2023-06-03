@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { userState, LoginState } from "../state";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const NavigatorModal = ({ isOpen, onClick }) => {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState);
@@ -22,21 +22,27 @@ const NavigatorModal = ({ isOpen, onClick }) => {
 
   const logout = () => {
     setIsLoggedIn(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <OverlayWrapper isOpen={isOpen} onClick={onClick}>
-      <ContainerWrapper isOpen={isOpen} modalWidth={modalWidth} isMobile={isMobile}>
+      <ContainerWrapper
+        isOpen={isOpen}
+        modalWidth={modalWidth}
+        isMobile={isMobile}
+      >
         {!loginState && <InfoText> 로그인 해주세요. </InfoText>}
         {loginState && (
           <>
             <InfoText>
-              로그인 완료! <br /><br />
+              로그인 완료! <br />
+              <br />
               {user && (
                 <UserInfo>
                   이름: {user.name} <br />
-                  이메일: {user.email} <br /><br />
+                  이메일: {user.email} <br />
+                  <br />
                 </UserInfo>
               )}
             </InfoText>
@@ -90,7 +96,7 @@ const LogoutButton = styled.button`
   margin-top: 10px;
   border-radius: 20px;
   border: 1px solid #2e3a51;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #2e3a51;
   font-size: 12px;
   font-weight: bold;
@@ -98,12 +104,12 @@ const LogoutButton = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  transform: scale(1.0);
+  transform: scale(1);
   outline: none;
 
   &:hover {
-        background-color: #6f7687;
-        color: #F3F3F3;
-        transition: 0.5s;
-    }
+    background-color: #6f7687;
+    color: #f3f3f3;
+    transition: 0.5s;
+  }
 `;

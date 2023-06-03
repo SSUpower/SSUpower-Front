@@ -5,7 +5,7 @@ import initialState, { timeSlots } from "./initialState";
 import GlobalStyle from "../../fonts/GlobalStyle";
 import axios from "axios";
 import Navbar from "../Navigator/Navigator";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { isUserState, isLoggedInState } from "../state";
 
@@ -50,10 +50,9 @@ function ScheduleMain() {
         console.log(error);
       });
 
-      if (!loginState){
-        navigate('/login');
-      }
-
+    if (!loginState) {
+      navigate("/login");
+    }
   }, [user]);
 
   const onSubmit = ({ day, startTime, endTime, subject, room, userId }) => {

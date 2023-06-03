@@ -4,7 +4,7 @@ import ScheduleMain from "./components/Schedule/ScheduleMain";
 import LoginPage from "./components/Login/Loginpage";
 import Join from "./components/Login/Join";
 import MapMain from "./components/Map/MapMain";
-import { RecoilRoot } from 'recoil'
+import { RecoilRoot } from "recoil";
 
 function App() {
   return (

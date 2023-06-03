@@ -1,15 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NavigatorModal from "./NavigatorModal";
 
 const NavigatorMenu = () => {
-
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
-  
+
   return (
     <>
       <HamburgerMenu isOpen={isMenuOpen} onClick={toggleMenu}>
@@ -18,11 +17,11 @@ const NavigatorMenu = () => {
         <HamburgerLine />
       </HamburgerMenu>
       {isMenuOpen && (
-      <NavigatorModal isOpen = {isMenuOpen} onClick={toggleMenu}ㅇ />
+        <NavigatorModal isOpen={isMenuOpen} onClick={toggleMenu} ㅇ />
       )}
     </>
   );
-}
+};
 
 export default NavigatorMenu;
 
@@ -47,7 +46,6 @@ const HamburgerMenu = styled.div`
 
     ${({ isOpen }) =>
       isOpen &&
-
       `
       div {
         background-color: #333;
@@ -62,4 +60,4 @@ const HamburgerLine = styled.div`
   background-color: #fff;
   margin: 5px 0;
   transition: background-color 0.3s ease;
-  `;
+`;

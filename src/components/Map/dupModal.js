@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 import styled from "styled-components";
 import GlobalStyle from "../../fonts/GlobalStyle";
-import Modal from './Modal'; 
+import Modal from "./Modal";
 
 function DupModal({ isOpen, closeModal, positionId, classId, positions }) {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
@@ -18,20 +18,27 @@ function DupModal({ isOpen, closeModal, positionId, classId, positions }) {
     else setiIsMobile(false);
   }, [innerWidth, isMobile]);
 
+  positions.forEach((position) => {
+    if (positionId === position.buildingId) {
+      console.log(positionId);
+      dupList.push(position);
+    }
+  });
 
-    positions.forEach(position => {
-        if(positionId === position.buildingId){
-            console.log(positionId)
-            dupList.push(position);
-        }
-    });
+  const handleMarkerClick = (positionId, classId) => {
+    // 모달 팝업 열기
+    const modalRoot = document.getElementById("modal-root");
+    ReactDOM.render(
+      <Modal
+        isOpen={true}
+        closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)}
+        positionId={positionId}
+        classId={classId}
+      />,
+      modalRoot
+    );
+  };
 
-    const handleMarkerClick = (positionId, classId) => {
-        // 모달 팝업 열기
-        const modalRoot = document.getElementById('modal-root');
-        ReactDOM.render(<Modal isOpen={true} closeModal={() => ReactDOM.unmountComponentAtNode(modalRoot)} positionId={positionId} classId={classId} />, modalRoot);
-    };
-  
   return (
     <>
       {isOpen && (
@@ -39,11 +46,14 @@ function DupModal({ isOpen, closeModal, positionId, classId, positions }) {
           <GlobalStyle />
           <Button onClick={closeModal}> X </Button>
           {dupList.map((item, index) => (
-            <ListButton key={index} onClick={() => handleMarkerClick(item.buildingId, item.classID)}> 
-                수업명 : {item.object} , 강의실 : {item.classID} 호
+            <ListButton
+              key={index}
+              onClick={() => handleMarkerClick(item.buildingId, item.classID)}
+            >
+              수업명 : {item.object} , 강의실 : {item.classID} 호
             </ListButton>
           ))}
-       </Wrapper>
+        </Wrapper>
       )}
     </>
   );
@@ -99,23 +109,23 @@ const Button = styled.button`
 `;
 
 const ListButton = styled.button`
-    border-radius: 20px;
-    border: 1px solid #2e3a51;
-    background-color: #FFFFFF;
-    color: #2e3a51;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    transform: scale(1);
-    outline: none;
+  border-radius: 20px;
+  border: 1px solid #2e3a51;
+  background-color: #ffffff;
+  color: #2e3a51;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  transform: scale(1);
+  outline: none;
 
-    &:hover {
-        background-color: #6f7687;
-        color: #F3F3F3;
-        transition: 0.5s;
-    }
-`
+  &:hover {
+    background-color: #6f7687;
+    color: #f3f3f3;
+    transition: 0.5s;
+  }
+`;

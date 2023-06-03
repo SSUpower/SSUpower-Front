@@ -1,4 +1,4 @@
-import getCellColor from './getCellColor';
+import getCellColor from "./getCellColor";
 
 const getCellStyle = (char) => {
   const color = getCellColor(char);
