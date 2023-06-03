@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from 'react-dom';
 import styled from "styled-components";
 import GlobalStyle from "../../fonts/GlobalStyle";
 import Modal from './Modal'; 
 
 function DupModal({ isOpen, closeModal, positionId, classId, positions }) {
-    let dupList = [];
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  const [isMobile, setiIsMobile] = useState(true);
+  let dupList = [];
+
+  useEffect(() => {
+    const resizeListener = () => {
+      setInnerWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", resizeListener);
+    if (innerWidth < 510) setiIsMobile(true);
+    else setiIsMobile(false);
+  }, [innerWidth, isMobile]);
+
 
     positions.forEach(position => {
         if(positionId === position.buildingId){
@@ -23,7 +35,7 @@ function DupModal({ isOpen, closeModal, positionId, classId, positions }) {
   return (
     <>
       {isOpen && (
-        <Wrapper>
+        <Wrapper isMobile={isMobile}>
           <GlobalStyle />
           <Button onClick={closeModal}> X </Button>
           {dupList.map((item, index) => (
@@ -44,7 +56,7 @@ const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20vw;
+  width: ${({ isMobile }) => (isMobile ? "80vw" : "20vw")};
   height: 20vh;
   background-color: #fff;
   border: none;
