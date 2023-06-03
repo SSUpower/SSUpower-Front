@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import NavigatorLogo from "./NavigatorLogo";
 import NavigatorItems from "./NavigatorItems";
@@ -14,7 +14,7 @@ const NavbarContainer = styled.div`
   color: #fff;
   display: flex;
   align-items: center;
-  padding: 10px 10px; 
+  padding: 10px 10px;
   width: 100%;
   flex-direction: row;
   z-index: 999;
@@ -26,26 +26,25 @@ const NavbarContainer = styled.div`
 
 // const NextLesson = styled.div`
 //   cursor: pointer;
-//   margin-left: 20px; 
-//   display: flex; 
+//   margin-left: 20px;
+//   display: flex;
 //   color: #fff;
-//   position: absolute; 
+//   position: absolute;
 //   font-size: 16px;
 //   align-itmes: center;
-//   flex-direction: row; 
+//   flex-direction: row;
 //   padding: 10px 10px;
 //   transform: translateX(100%);
 //   // margin-left: auto;
 //   // padding-left: 0;
 
-
 //   &: hover {
 //     color: #333;
 //   }
-  
+
 // `;
 
-function Navbar(){
+function Navbar() {
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
   const [isMobile, setiIsMobile] = useState(false);
 
@@ -58,20 +57,20 @@ function Navbar(){
     else setiIsMobile(false);
   }, [innerWidth, isMobile]);
 
-return (
-  <>
-    <NavbarContainer>
-      <NavigatorLogo isMobile={isMobile} />
-      <NavigatorItems isMobile={isMobile} />
-      <NavigatorMenu />
-      <NavigatorSearch />
-  
-      {/* <Lesson> 
+  return (
+    <>
+      <NavbarContainer>
+        <NavigatorLogo isMobile={isMobile} />
+        <NavigatorItems isMobile={isMobile} />
+        <NavigatorMenu />
+        <NavigatorSearch />
+
+        {/* <Lesson> 
         <NextLesson> 다음수업 </NextLesson>
       </Lesson> */}
-    </NavbarContainer>
-  </>
-);
-};
+      </NavbarContainer>
+    </>
+  );
+}
 
 export default Navbar;

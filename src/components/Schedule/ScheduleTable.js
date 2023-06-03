@@ -76,7 +76,8 @@ function ScheduleTable({ schedule }) {
               <Th
                 style={{ width: "50px" }}
                 isEvenRow={timeSlots.indexOf(time) % 2 !== 0}
-                key={time}>
+                key={time}
+              >
                 {time.indexOf(":") === 1 ? time.slice(0, 1) : time.slice(0, 2)}
               </Th>
               {daysOfWeek.map((day) => {
@@ -104,7 +105,8 @@ function ScheduleTable({ schedule }) {
                     subject={subject}
                     room={room}
                     isEvenRow={timeSlots.indexOf(time) % 2 !== 0}
-                    style={subject ? { backgroundColor: backgroundColor } : {}}>
+                    style={subject ? { backgroundColor: backgroundColor } : {}}
+                  >
                     {subject ? `${subject} (${room})` : ""}
                   </Td>
                 );
@@ -139,6 +141,4 @@ const Th = styled.th`
     props.isEvenRow && "color: transparent; border-top: 1px solid white;"}
   ${(props) => !props.isEvenRow && "border-bottom: none;"}
   position: relative;
-
-  }
 `;

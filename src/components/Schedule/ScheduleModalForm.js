@@ -52,7 +52,8 @@ const ScheduleModalForm = ({ onSubmit, userId }) => {
           name="day"
           id="day"
           value={day}
-          onChange={(e) => setDay(e.target.value)}>
+          onChange={(e) => setDay(e.target.value)}
+        >
           <Option value="">요일 선택</Option>
           {daysOfWeek.map((day) => (
             <Option key={day} value={day}>
@@ -68,7 +69,8 @@ const ScheduleModalForm = ({ onSubmit, userId }) => {
           name="startTime"
           id="startTime"
           value={startTime}
-          onChange={(e) => setStartTime(e.target.value)}>
+          onChange={(e) => setStartTime(e.target.value)}
+        >
           <Option value="">시작 시간 선택</Option>
           {timeSlots.map((time) => (
             <Option key={time} value={time}>
@@ -84,7 +86,8 @@ const ScheduleModalForm = ({ onSubmit, userId }) => {
           name="endTime"
           id="endTime"
           value={endTime}
-          onChange={(e) => setEndTime(e.target.value)}>
+          onChange={(e) => setEndTime(e.target.value)}
+        >
           <Option value="">종료 시간 선택</Option>
           {timeSlots.map((time) => (
             <Option key={time} value={time}>
