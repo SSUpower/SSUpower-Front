@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ScheduleTable from "./ScheduleTable";
 import ScheduleForm from "./ScheduleForm";
 import initialState, { timeSlots } from "./initialState";
+import GlobalStyle from "../../fonts/GlobalStyle";
 import axios from "axios";
 import Navbar from "../Navigator/Navigator";
 import { useNavigate } from 'react-router-dom';
@@ -89,6 +90,7 @@ function ScheduleMain() {
 
   return (
     <>
+      <GlobalStyle />
       <Navbar />
       <ScheduleForm
         onSubmit={onSubmit}

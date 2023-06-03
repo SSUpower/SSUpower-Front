@@ -38,14 +38,16 @@ const MapMain = () => {
 	}, [positions]);
 
     return (
-		<Wrapper>
-			<Navbar />
+		<>
 			<GlobalStyle />
-			<div id='myMap' style={{
-				width: '100vw',
-				height: '100vh'
-			}}></div>
-		</Wrapper>
+			<Navbar />
+			<Wrapper>
+				<div id='myMap' style={{
+					width: '100vw',
+					height: '100vh'
+				}}></div>
+			</Wrapper>
+		</>
     );
 }
 
