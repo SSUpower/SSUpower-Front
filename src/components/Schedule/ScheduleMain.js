@@ -19,7 +19,7 @@ function ScheduleMain() {
 
   useEffect(() => {
     axios
-      .post(`/timetable/${userId}/select`)
+      .post(`https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/timetable/${userId}/select`)
       .then((response) => {
         const receivedSchedule = response.data;
         const updatedSchedule = { ...initialState.schedule };
