@@ -20,7 +20,7 @@ function ScheduleDelete({ scheduleList, onDelete, userId }) {
     };
 
     axios
-      .delete(`/timetable/${userId}/delete`, { data: scheduleData })
+      .delete(`https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/timetable/${userId}/delete`, { data: scheduleData })
       .then(() => {
         onDelete(selectedSchedule);
         setSelectedSchedule("");
