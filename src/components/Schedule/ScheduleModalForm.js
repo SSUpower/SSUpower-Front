@@ -29,7 +29,7 @@ const ScheduleModalForm = ({ onSubmit, userId }) => {
 
     console.log(userId);
     axios
-      .post(`https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/timetable/${userId}/insert`, scheduleData)
+      .post(`/timetable/${userId}/insert`, scheduleData)
       .then((response) => {
         console.log(response);
         console.log(scheduleData);
