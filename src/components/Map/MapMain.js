@@ -17,7 +17,7 @@ const MapMain = () => {
 
   useEffect(() => {
     axios
-      .post(`/map/${userId}/select`)
+      .post(`https://port-0-ssupower-back-lhe2blhul1sus.sel4.cloudtype.app/map/${userId}/select`)
       .then((response) => {
         console.log(response.data);
         setPositions(response.data);
